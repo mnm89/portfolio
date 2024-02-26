@@ -12,7 +12,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
       initial="hidden"
       animate="enter"
       transition={{ type: "linear", delay: 1.2 }}
-      className="w-screen z-10 min-h-screen px-2 md:px-5 lg:px-10 xl:px-20 py-20"
+      className="w-screen z-10 min-h-screen px-2 py-20 lg:py-10 md:px-5 lg:px-10 xl:px-20 "
     >
       {children}
     </motion.main>
