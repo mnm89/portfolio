@@ -32,7 +32,9 @@ export default function RootLayout({
         <body
           className={`${raleway.className} antialiased text-white bg-gradient-to-r from-indigo-900 to-gray-900`}
         >
-          <Navbar />
+          <header>
+            <Navbar />
+          </header>
           <AnimParticles />
           {children}
           <Footer />
