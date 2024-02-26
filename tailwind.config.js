@@ -10,11 +10,11 @@ const config = {
   ],
   theme: {
     screens: {
-      sm: "640px",
-      md: "768px",
+      xs: "226px",
+      sm: "492px",
+      md: "758px",
       lg: "1024px",
       xl: "1280px",
-      "2xl": "1536px",
     },
     extend: {
       colors: {

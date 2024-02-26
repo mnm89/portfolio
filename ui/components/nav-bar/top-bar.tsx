@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import Link from "next/link";
 import me from "@/public/me.jpeg";
-import { navigation } from "@/ui/constants";
+import { navigation } from "@/ui/helpers";
 import { usePathname } from "next/navigation";
 import { IconType } from "react-icons";
 

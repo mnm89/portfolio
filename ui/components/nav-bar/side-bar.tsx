@@ -2,10 +2,10 @@
 import { useCycle, motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { MenuToggle } from "@/ui/nav-bar/menu-toggle";
+import { MenuToggle } from "@/ui/components/nav-bar/menu-toggle";
 import { IconType } from "react-icons";
 import React from "react";
-import { navigation } from "@/ui/constants";
+import { navigation } from "@/ui/helpers";
 
 const menuItemVariants = {
   open: {

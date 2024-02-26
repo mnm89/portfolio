@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
 import { ThemeProvider } from "@/ui/theme-provider";
-import { Navbar } from "@/ui/nav-bar";
-import "./globals.css";
+import { Navbar } from "@/ui/components/nav-bar";
 import { AnimParticles } from "@/ui/components/animated-particles";
 import { Footer } from "@/ui/components/footer";
+import "./globals.css";
 
 const raleway = Raleway({ subsets: ["latin"] });
 

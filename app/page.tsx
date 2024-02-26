@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <section>
         <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 my-auto">
             <h1 className="flex flex-nowrap gap-2 text-xl md:text-4xl">
               Hi There!
               <span className="inline-block origin-[70%_70%] animate-wave">
@@ -24,7 +24,7 @@ export default function Home() {
               </strong>
             </h1>
 
-            <div className="text-xl md:text-3xl my-auto h-3 text-fuchsia-400 font-semibold flex gap-2">
+            <div className="text-xl md:text-3xl h-3 text-fuchsia-400 font-semibold flex gap-2">
               <RedoAnimText
                 texts={[
                   "Software engineer",
@@ -36,8 +36,8 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex">
-            <Image src={home} alt="home pic" className="max-w-[532px] m-auto" />
+          <div className="flex max-w-[532px]">
+            <Image src={home} alt="home pic" className="m-auto" />
           </div>
         </div>
 
