@@ -21,6 +21,11 @@ export default function About() {
             from<span className="text-fuchsia-400"> Tunisia</span>
             located in<span className="text-fuchsia-400"> Berlin, Germany</span>
           </p>
+
+          <p className="text-brown-400 text-lg">
+            Strive to build things that make a difference and Always open to
+            learning new technologies and facing challenges
+          </p>
           <p className="text-lg">
             Highly skilled and results-driven Full Stack Software Engineer with
             a strong background in developing innovative and efficient software
@@ -29,8 +34,17 @@ export default function About() {
             design, develop, and deploy complex web applications that meet the
             needs of clients and end-users.
           </p>
-          <p className="text-brown-400 text-lg">
-            Strive to build things that make a difference!
+          <p className="text-lg">
+            I used to work with cross-functional teams, including front-end
+            developers, testers, and business stakeholders which in fact made my
+            communication and collaboration skills more stronger and reliable.
+          </p>
+          <p className="text-lg">
+            During the previous years I gathered some knowledge about DevOps and
+            Continuous Integration/Continuous Deployment so I became familiar
+            with building and maintaining CI/CD pipelines to automate testing
+            and deployment, also I built a strong analytical and problem-solving
+            skills to troubleshoot issues and optimize applications
           </p>
           <div className="flex flex-col gap-2 text-lg">
             <p className="flex flex-wrap gap-2">
