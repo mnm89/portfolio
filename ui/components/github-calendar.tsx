@@ -2,7 +2,7 @@ import ReactGithubCalendar, { ThemeInput } from "react-github-calendar";
 export function GithubCalendar() {
   const theme: ThemeInput = {
     dark: ["#581C87", "#D946EF"],
-    //light: ["#E0E7FF", "#6366F1"],
+    light: ["#581C87", "#D946EF"],
   };
   return (
     <ReactGithubCalendar

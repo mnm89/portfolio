@@ -13,9 +13,11 @@ export function IconCard(props: Props) {
     <Tooltip content={label} className="bg-nav-background text-nav-active">
       <div
         key={label}
-        className="border border-solid border-fuchsia-900 hover:border-fuchsia-400 bg-nav-background text-nav-active px-12 py-4 cursor-pointer hover:scale-110 hover:shadow-md hover:shadow-fuchsia-400"
+        className="border border-solid border-fuchsia-900 hover:border-fuchsia-400 bg-nav-background text-nav-active lg:px-12 px-6 lg:py-4 py-2 cursor-pointer hover:scale-110 hover:shadow-md hover:shadow-fuchsia-400"
       >
-        {React.createElement(icon, { className: "h-[80px] w-[80px]" })}
+        {React.createElement(icon, {
+          className: "h-[50px] w-[50px] lg:h-[80px] lg:w-[80px]",
+        })}
       </div>
     </Tooltip>
   );
