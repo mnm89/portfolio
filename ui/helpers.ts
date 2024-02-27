@@ -6,6 +6,8 @@ import {
   HiCodeBracketSquare,
   HiDocument,
 } from "react-icons/hi2";
+import { GrContact } from "react-icons/gr";
+
 import {
   SiJavascript,
   SiSailsdotjs,
@@ -57,7 +59,6 @@ import {
   SiFigma,
 } from "react-icons/si";
 import { DiYii, DiJava, DiPhp } from "react-icons/di";
-
 export const navigation = [
   {
     label: "Home",
@@ -78,6 +79,11 @@ export const navigation = [
     label: "Resume",
     icon: HiDocument,
     path: "/resume",
+  },
+  {
+    label: "Contact",
+    icon: GrContact,
+    path: "/contact",
   },
 ];
 export const skills = [

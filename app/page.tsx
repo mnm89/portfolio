@@ -77,6 +77,16 @@ export default function Home() {
                 Nest.js - Next.js - React.js - Express.js
               </b>
             </i>
+            also deploying and monitoring apps using
+            <i>
+              <b className="text-fuchsia-400">DevOps tools</b>
+            </i>
+            like
+            <i>
+              <b className="text-fuchsia-400">
+                Docker - CI/CD - AWS - k8s - Ansible - Terraform - Prometheus
+              </b>
+            </i>
           </p>
         </div>
         <div className="my-auto flex">
