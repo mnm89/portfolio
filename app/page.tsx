@@ -48,9 +48,8 @@ export default function Home() {
             <span>MYSELF</span>
           </h1>
           <p className="text-lg flex flex-wrap gap-2">
-            Eager to always learn and discover new technologies in order to be
-            up to date .I fell in love with programming and I have at least
-            learn something, I think… 🤷‍♂️
+            A software engineer graduated on 2017, Eager to always learn and
+            discover new technologies in order to be up to date
           </p>
           <p className="text-lg flex flex-wrap gap-2">
             I am fluent in classics like
