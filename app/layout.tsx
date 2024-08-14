@@ -17,7 +17,7 @@ const rubik = Rubik({
   weight: "600",
   variable: "--font-rubik",
 });
-const deploymentUrl = "portfolio-two-pi-54.vercel.app";
+const deploymentUrl = "https://portfolio-two-pi-54.vercel.app";
 const config = {
   name: "Mohamed Naceur Mabrouk",
   description: "I am a Passionate Software Engineer",
