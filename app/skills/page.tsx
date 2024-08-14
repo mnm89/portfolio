@@ -437,7 +437,49 @@ export default function SkillPage() {
 
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-
+      <FramerWrapper y={0} x={-100}>
+        <h1 className="font-poppins text-secondary-foreground dark:text-secondary font-bold text-4xl max-sm:text-2xl">
+          I am familiar with / worked with
+        </h1>
+      </FramerWrapper>
+      <ScrollArea className="h-auto w-full whitespace-nowrap rounded-md border">
+        <div className="flex w-max space-x-4 p-4">
+          <TooltipProvider>
+            {skills.map(({ icon, label }) => (
+              <FramerWrapper y={0} x={100} key={label}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    {React.createElement(icon, { className: "w-10 h-10" })}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{label}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </FramerWrapper>
+            ))}
+          </TooltipProvider>
+        </div>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
+      <ScrollArea className="h-auto w-full whitespace-nowrap rounded-md border">
+        <div className="flex w-max space-x-4 p-4">
+          <TooltipProvider>
+            {tools.map(({ icon, label }) => (
+              <FramerWrapper y={0} x={100} key={label}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    {React.createElement(icon, { className: "w-10 h-10" })}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{label}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </FramerWrapper>
+            ))}
+          </TooltipProvider>
+        </div>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
       <FramerWrapper y={0} x={-100}>
         <h1 className="font-poppins text-secondary-foreground dark:text-secondary font-bold text-4xl max-sm:text-2xl">
           My strongest skills and how I learned them...
@@ -491,50 +533,6 @@ export default function SkillPage() {
           </Button>
         </Link>
       </FramerWrapper>
-
-      <FramerWrapper y={0} x={-100}>
-        <h1 className="font-poppins text-secondary-foreground dark:text-secondary font-bold text-4xl max-sm:text-2xl">
-          I am familiar with / worked with
-        </h1>
-      </FramerWrapper>
-      <ScrollArea className="h-auto w-full whitespace-nowrap rounded-md border">
-        <div className="flex w-max space-x-4 p-4">
-          <TooltipProvider>
-            {skills.map(({ icon, label }) => (
-              <FramerWrapper y={0} x={100} key={label}>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    {React.createElement(icon, { className: "w-10 h-10" })}
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{label}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </FramerWrapper>
-            ))}
-          </TooltipProvider>
-        </div>
-        <ScrollBar orientation="horizontal" />
-      </ScrollArea>
-      <ScrollArea className="h-auto w-full whitespace-nowrap rounded-md border">
-        <div className="flex w-max space-x-4 p-4">
-          <TooltipProvider>
-            {tools.map(({ icon, label }) => (
-              <FramerWrapper y={0} x={100} key={label}>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    {React.createElement(icon, { className: "w-10 h-10" })}
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{label}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </FramerWrapper>
-            ))}
-          </TooltipProvider>
-        </div>
-        <ScrollBar orientation="horizontal" />
-      </ScrollArea>
     </section>
   );
 }
