@@ -1,4 +1,6 @@
+import { CursorBlinker, RedoAnimText } from "@/components/animated-text";
 import FramerWrapper from "@/components/framer-wrapper";
+import { GithubCalendar } from "@/components/github-calendar";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -9,7 +11,7 @@ import {
   Linkedin,
   Twitter,
 } from "lucide-react";
-import Image from "next/image";
+
 import Link from "next/link";
 
 const SocialLinks = () => {
@@ -60,66 +62,58 @@ const SocialLinks = () => {
 
 export default function Home() {
   return (
-    <>
+    <section className="grid md:grid-cols-2 gap-2 items-start">
       <FramerWrapper
-        className=" h-full w-auto flex flex-col justify-start gap-4"
+        className="flex flex-col justify-start gap-4"
         y={0}
         x={-100}
       >
         <h3 className="font-poppins text-2xl max-sm:text-xl">My Name is</h3>
-        <h1 className="font-rubik text-8xl name_underline text-primary max-sm:text-6xl ">
-          Mohamed Naceur <br /> Mabrouk .
+        <h1 className="font-rubik text-6xl text-primary max-sm:text-2xl ">
+          Mohamed Naceur Mabrouk
         </h1>
-        <div className="py-4  rounded-md flex flex-col justify-center items-center overflow-hidden">
-          <div className="font-poppins text-base sm:text-2xl [text-wrap:balance] text-gray-700">
-            I am a Software Engineer &
-            <span className="inline-flex ml-2 flex-col h-[calc(theme(fontSize.lg)*theme(lineHeight.tight))] sm:h-[calc(theme(fontSize.3xl)*theme(lineHeight.tight))] overflow-hidden">
-              <ul className="block text-left font-rubik text-lg sm:text-3xl leading-tight [&_li]:block animate-text-slide">
-                <li className="text-[#2f7df4]">Freelancer</li>
-                <li className="text-[#2f7df4]">Blogger</li>
-                <li className="text-[#2f7df4]">Gamer</li>
-                <li className="text-[#2f7df4]">Creator</li>
-                <li className="text-[#2f7df4]">Developer</li>
-                <li className="text-[#2f7df4]">Contributor</li>
-              </ul>
-            </span>
-          </div>
-        </div>
         <div className="h-fit w-full p-4 flex gap-3">
           <SocialLinks />
-        </div>
-        <div className="h-fit w-full mt-2 py-2 px-4">
-          <Button size={"lg"} className="text-base px-5 py-6">
-            <Download className="mx-1" />
-            Download Resume
-          </Button>
+          <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+            <Button size="lg" className="text-base px-5">
+              <Download className="mx-1" />
+              Download Resume
+            </Button>
+          </Link>
         </div>
       </FramerWrapper>
-      {/* RIGHT SIDE image  */}
       <FramerWrapper
-        className="h-full w-[47%] relative block max-lg:hidden"
+        className="flex flex-col justify-start gap-4"
         y={0}
-        x={100}
+        x={-100}
       >
-        {/* IMAGE  */}
-        <Image
-          src="/logo.png"
-          alt="logo"
-          loading="eager"
-          priority
-          height={1000}
-          width={1000}
-        />
-      </FramerWrapper>
+        <h3 className="font-poppins text-2xl max-sm:text-xl">
+          I am a Software Engineer &
+        </h3>
 
+        <div className="text-6xl text-primary max-sm:text-2xl flex gap-2 h-20">
+          <RedoAnimText
+            texts={[
+              "Freelancer",
+              "Programmer",
+              "Creator",
+              "Developer",
+              "Contributor",
+            ]}
+          />
+          <CursorBlinker />
+        </div>
+
+        <GithubCalendar />
+      </FramerWrapper>
       <Link
         href={"https://github.com/mnm89"}
         target="blank"
-        className=" animate-pulse absolute left-0 bottom-5 flex rounded-r-full justify-center items-center gap-2 z-50 w-fit h-fit p-2 shadow-md  border-y border-r  border-black hover:bg-primary hover:text-white hover:animate-none "
+        className=" animate-pulse absolute left-0 bottom-5 flex rounded-r-full justify-center items-center gap-2 z-50 w-fit h-fit p-2 shadow-md  border-y border-r  border-foreground hover:bg-accent hover:text-accent-foreground "
       >
         <Github />
         <span className="font-rubik text-2xl max-sm:text-xl">Github</span>
       </Link>
-    </>
+    </section>
   );
 }

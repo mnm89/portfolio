@@ -25,12 +25,12 @@ import { usePathname } from "next/navigation";
 const Navbar = () => {
   const items = [
     { name: "Home", icon: <Home />, link: "/" },
-    { name: "about", icon: <User2 />, link: "/about" },
-    { name: "skills", icon: <Lightbulb />, link: "/skills" },
-    { name: "projects", icon: <Layers />, link: "/projects" },
-    { name: "work", icon: <Briefcase />, link: "/education" },
-    { name: "more", icon: <PackagePlus />, link: "/more" },
-    { name: "contact", icon: <Phone />, link: "/contact" },
+    // { name: "about", icon: <User2 />, link: "/about" },
+    // { name: "skills", icon: <Lightbulb />, link: "/skills" },
+    // { name: "projects", icon: <Layers />, link: "/projects" },
+    // { name: "work", icon: <Briefcase />, link: "/education" },
+    // { name: "more", icon: <PackagePlus />, link: "/more" },
+    // { name: "contact", icon: <Phone />, link: "/contact" },
   ];
 
   const [scrolling, setScrolling] = useState(false);
@@ -54,7 +54,7 @@ const Navbar = () => {
 
   return (
     <FramerWrapper
-      className={`h-fit w-fit fixed top-5 right-0 left-0 px-5   m-auto border border-black rounded-full  p-2 bg-transparent   flex-row gap-3 transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-100 max-sm:gap-1 ${
+      className={`h-fit w-fit fixed top-5 right-0 left-0 px-5  m-auto border border-foreground rounded-full p-2 bg-transparent flex-row gap-3 transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-100 max-sm:gap-1 ${
         scrolling ? "hidden" : "flex"
       }`}
       y={-100}
@@ -68,8 +68,7 @@ const Navbar = () => {
                   href={itm.link}
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "sm" }),
-                    "hover:text-[#2f7df4]",
-                    pathname === itm.link && "text-[#2f7df4] bg-zinc-100"
+                    pathname === itm.link && "text-primary"
                   )}
                 >
                   {itm.icon}
