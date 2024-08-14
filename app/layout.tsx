@@ -21,7 +21,8 @@ const deploymentUrl = "https://portfolio-two-pi-54.vercel.app";
 const config = {
   name: "Mohamed Naceur Mabrouk",
   description: "I am a Passionate Software Engineer",
-  ogImage: "", //TODO
+  ogLight: deploymentUrl + "/og-light.png",
+  ogDark: deploymentUrl + "/og-dark.png",
   url: deploymentUrl,
 };
 export const metadata: Metadata = {
@@ -66,14 +67,14 @@ export const metadata: Metadata = {
     url: config.url,
     title: config.name,
     description: config.description,
-    images: [`${config.url}/og-image.png`],
+    images: [config.ogDark, config.ogLight],
     siteName: config.name,
   },
   twitter: {
     card: "summary_large_image",
     title: config.name,
     description: config.description,
-    images: [`${config.url}/og-image.png`],
+    images: [config.ogDark, config.ogLight],
     creator: "@mnm89",
   },
   icons: {
