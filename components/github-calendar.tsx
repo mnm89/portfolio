@@ -6,8 +6,6 @@ export function GithubCalendar() {
     dark: [colors.indigo[300], colors.indigo[700]],
     light: [colors.indigo[300], colors.indigo[700]],
   };
-
-  console.log({ theme });
   return (
     <ReactGithubCalendar
       username="mnm89"

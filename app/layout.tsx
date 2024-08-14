@@ -17,21 +17,20 @@ const rubik = Rubik({
   weight: "600",
   variable: "--font-rubik",
 });
-export const config = {
+const deploymentUrl = "portfolio-two-pi-54.vercel.app";
+const config = {
   name: "Mohamed Naceur Mabrouk",
-  description: "I am a Passionate Software Developer",
+  description: "I am a Passionate Software Engineer",
   ogImage: "", //TODO
-  url: "", //TODO
+  url: deploymentUrl,
 };
 export const metadata: Metadata = {
-  //metadataBase: new URL(""), //TODO
+  metadataBase: new URL(deploymentUrl),
   title: {
     default: config.name,
     template: `%s - Software Engineer`,
   },
   description: config.description,
-
-  // added new keywords for seo
   keywords: [
     "mabrouk",
     "MABROUK",
