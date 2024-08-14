@@ -62,14 +62,13 @@ const SocialLinks = () => {
 
 export default function Home() {
   return (
-    <section className="grid md:grid-cols-2 gap-2 items-start">
+    <section className="grid md:grid-cols-2 gap-2 items-start my-auto">
       <FramerWrapper
-        className="flex flex-col justify-start gap-4"
+        className="flex flex-col justify-start gap-4 mt-auto"
         y={0}
         x={-100}
       >
-        <h3 className="font-poppins text-2xl max-sm:text-xl">My Name is</h3>
-        <h1 className="font-rubik text-6xl text-primary max-sm:text-2xl ">
+        <h1 className="font-rubik text-6xl text-primary max-sm:text-2xl">
           Mohamed Naceur Mabrouk
         </h1>
         <div className="h-fit w-full p-4 flex gap-3">
@@ -91,7 +90,7 @@ export default function Home() {
           I am a Software Engineer &
         </h3>
 
-        <div className="text-6xl text-primary max-sm:text-2xl flex gap-2 h-20">
+        <div className="text-6xl text-secondary-foreground dark:text-secondary max-sm:text-2xl flex gap-2 h-20">
           <RedoAnimText
             texts={[
               "Freelancer",

@@ -97,7 +97,7 @@ export default function RootLayout({
             <Navbar />
             <main
               className={cn(
-                "container relative screen break-words min-h-screen flex items-center mt-20"
+                "container relative screen break-words min-h-screen flex items-start mt-24"
               )}
             >
               {children}
