@@ -21,16 +21,17 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import FramerWrapper from "./framer-wrapper";
 import { usePathname } from "next/navigation";
+import { ModeToggle } from "./mode-toggle";
 
 const Navbar = () => {
   const items = [
     { name: "Home", icon: <Home />, link: "/" },
-    // { name: "about", icon: <User2 />, link: "/about" },
-    // { name: "skills", icon: <Lightbulb />, link: "/skills" },
-    // { name: "projects", icon: <Layers />, link: "/projects" },
-    // { name: "work", icon: <Briefcase />, link: "/education" },
-    // { name: "more", icon: <PackagePlus />, link: "/more" },
-    // { name: "contact", icon: <Phone />, link: "/contact" },
+    { name: "about", icon: <User2 />, link: "/about" },
+    { name: "skills", icon: <Lightbulb />, link: "/skills" },
+    { name: "projects", icon: <Layers />, link: "/projects" },
+    { name: "work", icon: <Briefcase />, link: "/education" },
+    { name: "more", icon: <PackagePlus />, link: "/more" },
+    { name: "contact", icon: <Phone />, link: "/contact" },
   ];
 
   const [scrolling, setScrolling] = useState(false);
@@ -54,21 +55,21 @@ const Navbar = () => {
 
   return (
     <FramerWrapper
-      className={`h-fit w-fit fixed top-5 right-0 left-0 px-5  m-auto border border-foreground rounded-full p-2 bg-transparent flex-row gap-3 transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-100 max-sm:gap-1 ${
+      className={`h-fit w-fit fixed top-5 right-0 left-0 px-5 z-50 m-auto border border-foreground rounded-full p-2 bg-background flex-row gap-3 transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-100 max-sm:gap-1 ${
         scrolling ? "hidden" : "flex"
       }`}
       y={-100}
     >
-      {items.map((itm) => {
-        return (
-          <TooltipProvider key={itm.name}>
-            <Tooltip>
+      <TooltipProvider>
+        {items.map((itm) => {
+          return (
+            <Tooltip key={itm.name}>
               <TooltipTrigger asChild>
                 <Link
                   href={itm.link}
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "sm" }),
-                    pathname === itm.link && "text-primary"
+                    pathname === itm.link && "dark:text-secondary text-primary"
                   )}
                 >
                   {itm.icon}
@@ -78,9 +79,10 @@ const Navbar = () => {
                 <p>{itm.name}</p>
               </TooltipContent>
             </Tooltip>
-          </TooltipProvider>
-        );
-      })}
+          );
+        })}
+        <ModeToggle />
+      </TooltipProvider>
     </FramerWrapper>
   );
 };

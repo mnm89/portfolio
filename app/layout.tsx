@@ -94,16 +94,12 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ProgressBarProviders>
-            <div className="absolute top-7 left-7 z-50">
-              <ModeToggle />
-            </div>
-
+            <Navbar />
             <main
               className={cn(
-                "container relative screen break-words min-h-screen flex items-center"
+                "container relative screen break-words min-h-screen flex items-center mt-20"
               )}
             >
-              <Navbar />
               {children}
             </main>
           </ProgressBarProviders>

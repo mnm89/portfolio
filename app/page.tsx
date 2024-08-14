@@ -109,7 +109,7 @@ export default function Home() {
       <Link
         href={"https://github.com/mnm89"}
         target="blank"
-        className=" animate-pulse absolute left-0 bottom-5 flex rounded-r-full justify-center items-center gap-2 z-50 w-fit h-fit p-2 shadow-md  border-y border-r  border-foreground hover:bg-accent hover:text-accent-foreground "
+        className=" animate-pulse flex rounded-r-full justify-center items-center gap-2 z-50 w-fit h-fit p-2 shadow-md  border-y border-r border-primary text-primary  dark:border-secondary dark:text-secondary hover:bg-accent hover:text-accent-foreground hover:border-accent-foreground"
       >
         <Github />
         <span className="font-rubik text-2xl max-sm:text-xl">Github</span>
