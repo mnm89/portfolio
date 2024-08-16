@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import { FaPhone } from "react-icons/fa";
+import { Button } from "./ui/button";
+import { CalendarCheck } from "lucide-react";
 export default function GoogleSchedulerButton() {
   const ref = useRef<HTMLDialogElement | null>(null);
   const [showModel, setShowModel] = useState(false);
@@ -18,12 +19,10 @@ export default function GoogleSchedulerButton() {
   }, [showModel]);
   return (
     <>
-      <button className="" onClick={() => setShowModel((prev) => !prev)}>
+      <Button className="w-fit" onClick={() => setShowModel((prev) => !prev)}>
         Book an Appointment
-        <span className="btn btn-icon bg-slate-600 hover:bg-slate-700 border-slate-600 hover:border-slate-700 text-white rounded-full ml-2">
-          <FaPhone className="text-xl" />
-        </span>
-      </button>
+        <CalendarCheck className="text-xl ml-2" />
+      </Button>
       <dialog
         ref={ref}
         onClick={(e) => {

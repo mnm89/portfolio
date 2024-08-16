@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <section className="flex flex-col items-center justify-center w-full bg-transparent">
+    <section className="flex flex-col items-center justify-center w-full bg-transparent h-[80vh]">
       <FramerWrapper className="text-center space-y-4">
         <h1 className="text-8xl font-bold text-primary">404</h1>
         <p className="text-lg text-muted-foreground">

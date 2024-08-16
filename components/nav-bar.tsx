@@ -54,11 +54,10 @@ const Navbar = () => {
   }, []);
 
   return (
-    <FramerWrapper
-      className={`h-fit w-fit fixed top-5 right-0 left-0 px-5 z-50 m-auto border border-foreground rounded-full p-2 bg-background flex-row gap-3 transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-100 max-sm:gap-1 ${
+    <div
+      className={`h-fit w-fit fixed top-5 right-0 left-0 px-5 z-50 m-auto border border-foreground rounded-full p-2 bg-background flex-row gap-3 transition ease-in-out delay-150  hover:scale-100 max-sm:gap-1 ${
         scrolling ? "hidden" : "flex"
       }`}
-      y={-100}
     >
       <TooltipProvider>
         {items.map((itm) => {
@@ -83,7 +82,7 @@ const Navbar = () => {
         })}
         <ModeToggle />
       </TooltipProvider>
-    </FramerWrapper>
+    </div>
   );
 };
 

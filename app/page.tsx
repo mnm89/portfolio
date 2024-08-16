@@ -62,9 +62,9 @@ const SocialLinks = () => {
 
 export default function Home() {
   return (
-    <section className="grid md:grid-cols-2 gap-2 items-start my-auto">
+    <section className="grid md:grid-cols-2 gap-2 justify-start items-center h-[80vh]">
       <FramerWrapper
-        className="flex flex-col justify-start gap-4 mt-auto"
+        className="flex flex-col justify-start gap-4"
         y={0}
         x={-100}
       >
