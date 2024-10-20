@@ -34,15 +34,16 @@ const projects: GithubProject[] = [
     technologies: ["typescript", "nestjs", "prisma"],
     title: "Food API",
   },
-  /*{
-    description: "",
-    githubUrl: "",
-    image: "",
+  {
+    description:
+      "This project is an example of socket IO client implementation, which allows you to subscribe to IO server events.",
+    githubUrl: "https://github.com/mnm89/socket.io-client-testing-tool",
+    image: "/socket-io-client.png",
     id: "3",
-    liveDemoUrl: "",
-    technologies: [],
-    title: "",
-  }, */
+    liveDemoUrl: "https://mnm89.github.io/socket.io-client-testing-tool/",
+    technologies: ["react", "html", "javascript", "css", "socket.io"],
+    title: "Socket IO client testing tool",
+  },
 ];
 
 export default function ProjectsPage() {
