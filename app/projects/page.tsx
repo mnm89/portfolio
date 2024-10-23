@@ -44,6 +44,24 @@ const projects: GithubProject[] = [
     technologies: ["react", "html", "javascript", "css", "socket.io"],
     title: "Socket IO client testing tool",
   },
+  {
+    description:
+      "TaskFlow is a task management app where users can create, update, and delete tasks. The app provides real-time task collaboration features using WebSockets, supports user authentication with JWT, and integrates with an external API for time-tracking. It uses a PostgreSQL database for data persistence and demonstrates best practices with TypeScript, React, Node.js, and Express",
+    githubUrl: "https://github.com/mnm89/task-management",
+    image: "/task-api.png",
+    id: "4",
+    liveDemoUrl: "https://task-management-mnm.vercel.app",
+    technologies: [
+      "react",
+      "html",
+      "typescript",
+      "css",
+      "socket.io",
+      "typeorm",
+      "express",
+    ],
+    title: "TaskFlow - Advanced Task Management App",
+  },
 ];
 
 export default function ProjectsPage() {
