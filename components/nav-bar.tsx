@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/tooltip";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import FramerWrapper from "./framer-wrapper";
 import { usePathname } from "next/navigation";
 import { ModeToggle } from "./mode-toggle";
 
@@ -29,8 +28,8 @@ const Navbar = () => {
     { name: "about", icon: <User2 />, link: "/about" },
     { name: "skills", icon: <Lightbulb />, link: "/skills" },
     { name: "projects", icon: <Layers />, link: "/projects" },
-    { name: "work", icon: <Briefcase />, link: "/education" },
-    { name: "more", icon: <PackagePlus />, link: "/more" },
+    // { name: "work", icon: <Briefcase />, link: "/education" },
+    // { name: "more", icon: <PackagePlus />, link: "/more" },
     { name: "contact", icon: <Phone />, link: "/contact" },
   ];
 
