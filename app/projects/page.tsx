@@ -62,6 +62,25 @@ const projects: GithubProject[] = [
     ],
     title: "TaskFlow - Advanced Task Management App",
   },
+  {
+    description:
+      "This repository is a full-stack e-commerce solution built using Medusa v2 for the backend and the Medusa Next.js Starter for the frontend. The setup includes MinIO for file storage and integrates Stripe and PayPal as payment providers. The project is containerized using Docker Compose to simplify running the entire stack locally or in production environments.",
+    githubUrl: "https://github.com/mnm89/e-commerce-store",
+    image: "/ecommerce-store.png",
+    id: "5",
+    liveDemoUrl: "",
+    technologies: [
+      "Medusa V2",
+      "Nodejs",
+      "typescript",
+      "Nextjs",
+      "React",
+      "Minio",
+      "Stripe",
+      "Paypal",
+    ],
+    title: "Full-Stack E-commerce Project",
+  },
 ];
 
 export default function ProjectsPage() {
