@@ -409,6 +409,17 @@ export default function SkillPage() {
 
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
+      <FramerWrapper
+        y={0}
+        x={100}
+        className=" font-poppins text-xl w-full max-sm:text-lg"
+      >
+        Experienced in building scalable, high-performance web applications
+        using modern JavaScript frameworks and libraries. Proficient in
+        front-end and back-end development, including expertise in React, Next
+        Node.js, and Typescript. Strong understanding of asynchronous
+        programming, state management, and UI/UX design principles.
+      </FramerWrapper>
       <FramerWrapper y={0} x={-100}>
         <h1 className="font-poppins text-secondary-foreground dark:text-secondary font-bold text-4xl max-sm:text-2xl">
           I am familiar with / worked with
@@ -468,9 +479,10 @@ export default function SkillPage() {
       >
         After years of coding, in different environments with different
         startups, I ended up building a strong expertise and comfort working
-        with frameworks and tools based on Nodejs / Typescript. I am also adept
-        at collaborating with cross-functional teams to deliver clean,
-        maintainable code that meets business objectives
+        with frameworks and tools. I am also adept at collaborating with
+        cross-functional teams to deliver clean, maintainable code that meets
+        business objectives. Passionate about continuous learning and staying
+        updated with the latest industry trends and best practices.
       </FramerWrapper>
       <FramerWrapper y={0} x={-100}>
         <h1 className="font-poppins text-secondary-foreground dark:text-secondary font-bold text-4xl max-sm:text-2xl">
