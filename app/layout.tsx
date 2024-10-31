@@ -88,20 +88,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden overflow-y-auto static">
       <body
         className={`${poppins.variable} ${rubik.variable} bg-gradient-to-r from-background to-muted p-0 m-0`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ProgressBarProviders>
             <Navbar />
-            <main
-              className={cn(
-                "container relative screen break-words min-h-screen flex items-start mt-24"
-              )}
-            >
-              {children}
-            </main>
+            <main className={cn("p-4 flex items-start")}>{children}</main>
           </ProgressBarProviders>
         </ThemeProvider>
       </body>

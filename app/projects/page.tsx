@@ -1,7 +1,19 @@
-import ProjectsList, { GithubProject } from "@/components/projects-list";
+import { GithubProject } from "@/components/projects-list";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Typography } from "@/components/ui/typography";
 import Link from "next/link";
+import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
+import FramerWrapper from "@/components/framer-wrapper";
+import { Award } from "lucide-react";
 
 const projects: GithubProject[] = [
   {
@@ -29,7 +41,7 @@ const projects: GithubProject[] = [
       "This project is simple Nestjs application to manage food via Rest API. For the database management we use Prisma. A food can be related to a category, a food can be also related to a meal. Each model is managed by it's own crud.",
     githubUrl: "https://github.com/mnm89/food-api",
     image: "/food-api.png",
-    id: "2",
+    id: "3",
     liveDemoUrl: "https://food-management-api.up.railway.app/",
     technologies: ["typescript", "nestjs", "prisma"],
     title: "Food API",
@@ -39,7 +51,7 @@ const projects: GithubProject[] = [
       "This project is an example of socket IO client implementation, which allows you to subscribe to IO server events.",
     githubUrl: "https://github.com/mnm89/socket.io-client-testing-tool",
     image: "/socket-io-client.png",
-    id: "3",
+    id: "4",
     liveDemoUrl: "https://mnm89.github.io/socket.io-client-testing-tool/",
     technologies: ["react", "html", "javascript", "css", "socket.io"],
     title: "Socket IO client testing tool",
@@ -49,7 +61,7 @@ const projects: GithubProject[] = [
       "TaskFlow is a task management app where users can create, update, and delete tasks. The app provides real-time task collaboration features using WebSockets, supports user authentication with JWT, and integrates with an external API for time-tracking. It uses a PostgreSQL database for data persistence and demonstrates best practices with TypeScript, React, Node.js, and Express",
     githubUrl: "https://github.com/mnm89/task-management",
     image: "/task-api.png",
-    id: "4",
+    id: "5",
     liveDemoUrl: "https://task-management-mnm.vercel.app",
     technologies: [
       "react",
@@ -67,7 +79,7 @@ const projects: GithubProject[] = [
       "This repository is a full-stack e-commerce solution built using Medusa v2 for the backend and the Medusa Next.js Starter for the frontend. The setup includes MinIO for file storage and integrates Stripe and PayPal as payment providers. The project is containerized using Docker Compose to simplify running the entire stack locally or in production environments.",
     githubUrl: "https://github.com/mnm89/e-commerce-store",
     image: "/ecommerce-store.png",
-    id: "5",
+    id: "6",
     liveDemoUrl: "",
     technologies: [
       "Medusa V2",
@@ -85,10 +97,16 @@ const projects: GithubProject[] = [
 
 export default function ProjectsPage() {
   return (
-    <section className="container mx-auto my-8">
-      <Typography as="h1" variant="h1" className="text-4xl font-bold mb-4">
+    <section className="flex flex-col items-start">
+      <Badge variant="secondary" className="gap-2 mt-2">
+        <Award className="h-5 w-5" />
         My Projects
-      </Typography>
+      </Badge>
+      <Typography
+        as="h1"
+        variant="h1"
+        className="text-4xl font-bold mb-4"
+      ></Typography>
       <Typography as="p" variant="body1" className="text-lg mb-6">
         Here are some of my recent projects hosted on GitHub. Feel free to
         explore the repositories and dive into the code.
@@ -102,8 +120,46 @@ export default function ProjectsPage() {
           View My GitHub
         </Link>
       </Button>
-
-      <ProjectsList projects={projects} />
+      <FramerWrapper y={0} x={100} className="flex flex-wrap gap-2">
+        {projects.map((p) => (
+          <Card className="w-[350px] flex-col flex" key={p.id}>
+            <CardHeader>
+              <CardTitle>{p.title}</CardTitle>
+              <CardDescription>{p.description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Image
+                src={p.image}
+                alt={`${p.title} screenshot`}
+                width={350}
+                height={400}
+                className="rounded-t-md"
+              />
+              <div className="flex flex-wrap gap-2 mt-2">
+                {p.technologies.map((tech) => (
+                  <Badge key={tech} className="text-sm">
+                    {tech}
+                  </Badge>
+                ))}
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-between mt-auto">
+              <Button asChild>
+                <Link href={p.githubUrl} target="_blank">
+                  View on GitHub
+                </Link>
+              </Button>
+              {p.liveDemoUrl && (
+                <Button asChild variant="outline">
+                  <Link href={p.liveDemoUrl} target="_blank">
+                    Live Demo
+                  </Link>
+                </Button>
+              )}
+            </CardFooter>
+          </Card>
+        ))}
+      </FramerWrapper>
     </section>
   );
 }

@@ -334,8 +334,8 @@ function TypeIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
 
 export default function SkillPage() {
   return (
-    <section className="w-full flex flex-col items-start gap-3 overflow-hidden">
-      <ScrollArea className="h-auto w-full whitespace-nowrap rounded-md border">
+    <section className="grid gap-2 mt-2">
+      <ScrollArea className="w-[360px] md:[400px] lg:w-full whitespace-nowrap rounded-md border">
         <div className="flex w-max space-x-4 p-4">
           <FramerWrapper
             y={0}
@@ -405,34 +405,6 @@ export default function SkillPage() {
               </div>
             </div>
           </FramerWrapper>
-          <FramerWrapper
-            y={0}
-            x={200}
-            className="flex flex-col gap-3 border p-4 border-secondary-foreground shadow rounded "
-          >
-            <Badge variant="default" className="max-w-fit gap-2">
-              <Lightbulb className="h-5 w-5" />
-              Language
-            </Badge>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-              <div className="flex flex-col items-center gap-1">
-                <LanguagesIcon className="w-8 h-8" />
-                <div>English</div>
-              </div>
-              <div className="flex flex-col items-center gap-1">
-                <LanguagesIcon className="w-8 h-8" />
-                <div>Arabic</div>
-              </div>
-              <div className="flex flex-col items-center gap-1">
-                <SwissFrancIcon className="w-8 h-8" />
-                <div>French</div>
-              </div>
-              <div className="flex flex-col items-center gap-1">
-                <EuroIcon className="w-8 h-8" />
-                <div>German</div>
-              </div>
-            </div>
-          </FramerWrapper>
         </div>
 
         <ScrollBar orientation="horizontal" />
@@ -442,14 +414,16 @@ export default function SkillPage() {
           I am familiar with / worked with
         </h1>
       </FramerWrapper>
-      <ScrollArea className="h-auto w-full whitespace-nowrap rounded-md border">
+      <ScrollArea className="w-[360px] md:[400px] lg:w-full whitespace-nowrap rounded-md border">
         <div className="flex w-max space-x-4 p-4">
           <TooltipProvider>
             {skills.map(({ icon, label }) => (
               <FramerWrapper y={0} x={100} key={label}>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    {React.createElement(icon, { className: "w-10 h-10" })}
+                    {React.createElement(icon, {
+                      className: "w-10 h-10 cursor-pointer",
+                    })}
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>{label}</p>
@@ -461,14 +435,16 @@ export default function SkillPage() {
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-      <ScrollArea className="h-auto w-full whitespace-nowrap rounded-md border">
+      <ScrollArea className="w-[360px] md:[400px] lg:w-full whitespace-nowrap rounded-md border">
         <div className="flex w-max space-x-4 p-4">
           <TooltipProvider>
             {tools.map(({ icon, label }) => (
               <FramerWrapper y={0} x={100} key={label}>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    {React.createElement(icon, { className: "w-10 h-10" })}
+                    {React.createElement(icon, {
+                      className: "w-10 h-10 cursor-pointer",
+                    })}
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>{label}</p>
@@ -506,10 +482,10 @@ export default function SkillPage() {
         x={100}
         className=" font-poppins text-xl w-full max-sm:text-lg"
       >
-        My ideal position is a Fullstack JavaScript Engineer. I am open to only
-        Frontend or Backend positions as well, though. It is a strong belief of
-        mine that continuous learning and staying updated with the latest
-        industry trends and best practices is the key to success.
+        My ideal position is a Fullstack JavaScript Engineer. Frontend only or
+        Backend only position also in my interest. It is a strong belief of mine
+        that continuous learning and staying updated with the latest industry
+        trends and best practices is the key to success.
       </FramerWrapper>
       <FramerWrapper
         y={0}

@@ -62,7 +62,7 @@ const SocialLinks = () => {
 
 export default function Home() {
   return (
-    <section className="grid md:grid-cols-2 gap-2 justify-start items-center h-[80vh]">
+    <section className="grid md:grid-cols-2 gap-1 justify-start items-center">
       <FramerWrapper
         className="flex flex-col justify-start gap-4"
         y={0}
@@ -71,8 +71,10 @@ export default function Home() {
         <h1 className="font-rubik text-6xl text-primary max-sm:text-2xl">
           Mohamed Naceur Mabrouk
         </h1>
-        <div className="h-fit w-full p-4 flex gap-3">
-          <SocialLinks />
+        <div className="h-fit w-full p-4 flex flex-col gap-2">
+          <div className="flex gap-3">
+            <SocialLinks />
+          </div>
           <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
             <Button size="lg" className="text-base px-5">
               <Download className="mx-1" />
@@ -82,7 +84,7 @@ export default function Home() {
         </div>
       </FramerWrapper>
       <FramerWrapper
-        className="flex flex-col justify-start gap-4"
+        className="flex flex-col justify-start gap-2"
         y={0}
         x={-100}
       >
@@ -90,7 +92,7 @@ export default function Home() {
           I am a Software Engineer &
         </h3>
 
-        <div className="text-6xl text-secondary-foreground dark:text-secondary max-sm:text-2xl flex gap-2 h-20">
+        <div className="text-6xl text-secondary-foreground dark:text-secondary max-sm:text-2xl flex gap-2">
           <RedoAnimText
             texts={[
               "Freelancer",
@@ -104,15 +106,15 @@ export default function Home() {
         </div>
 
         <GithubCalendar />
+        <Link
+          href={"https://github.com/mnm89"}
+          target="blank"
+          className=" animate-pulse flex rounded-r-full justify-center items-center gap-2 z-50 w-fit h-fit p-2 shadow-md  border-y border-r border-primary text-primary  dark:border-secondary dark:text-secondary hover:bg-accent hover:text-accent-foreground hover:border-accent-foreground"
+        >
+          <Github />
+          <span className="font-rubik text-2xl max-sm:text-xl">Github</span>
+        </Link>
       </FramerWrapper>
-      <Link
-        href={"https://github.com/mnm89"}
-        target="blank"
-        className=" animate-pulse flex rounded-r-full justify-center items-center gap-2 z-50 w-fit h-fit p-2 shadow-md  border-y border-r border-primary text-primary  dark:border-secondary dark:text-secondary hover:bg-accent hover:text-accent-foreground hover:border-accent-foreground"
-      >
-        <Github />
-        <span className="font-rubik text-2xl max-sm:text-xl">Github</span>
-      </Link>
     </section>
   );
 }

@@ -33,30 +33,11 @@ const Navbar = () => {
     { name: "contact", icon: <Phone />, link: "/contact" },
   ];
 
-  const [scrolling, setScrolling] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setScrolling(true);
-      } else {
-        setScrolling(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <div
-      className={`h-fit w-fit fixed top-5 right-0 left-0 px-5 z-50 m-auto border border-foreground rounded-full p-2 bg-background flex-row gap-3 transition ease-in-out delay-150  hover:scale-100 max-sm:gap-1 ${
-        scrolling ? "hidden" : "flex"
-      }`}
+      className={`h-fit w-fit mt-4 px-5 z-50 m-auto border border-foreground rounded-full p-2 bg-background flex-row gap-3 transition ease-in-out delay-150  hover:scale-100 max-sm:gap-1`}
     >
       <TooltipProvider>
         {items.map((itm) => {
