@@ -94,6 +94,22 @@ const projects: GithubProject[] = [
     ],
     title: "Full-Stack E-commerce Project",
   },
+  {
+    description:
+      "a video player using ffmpeg with electron. It took any video format as input convert it to mp4 save it to disk and play it or queue it in the playlist",
+    githubUrl: "https://github.com/mnm89/electron-ffmpeg",
+    image: "/electron-ffmpeg.png",
+    id: "7",
+    liveDemoUrl: "",
+    technologies: [
+      "Electron",
+      "Angular",
+      "typescript",
+      "ngx-videogular",
+      "ffmpeg",
+    ],
+    title: "Electron-ffmpeg Media Player",
+  },
 ];
 
 export default function ProjectsPage() {
