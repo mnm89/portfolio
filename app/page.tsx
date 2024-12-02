@@ -92,7 +92,7 @@ export default function Home() {
           I am a Software Engineer &
         </h3>
 
-        <div className="text-6xl text-secondary-foreground dark:text-secondary max-sm:text-2xl flex gap-2">
+        <div className="text-4xl text-secondary-foreground dark:text-secondary max-sm:text-2xl flex gap-2 py-4">
           <RedoAnimText
             texts={[
               "Freelancer",
