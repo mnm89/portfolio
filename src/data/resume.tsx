@@ -2,7 +2,7 @@ import { Icons } from "@/components/icons";
 import { HomeIcon, NotebookIcon } from "lucide-react";
 
 export const DATA = {
-  name: "Mohamed Naceur Mabrouk",
+  name: "M.Naceur Mabrouk",
   initials: "MNM",
   url: "https://www.mnmabrouk.com",
   location: "Berlin, DE",
@@ -231,7 +231,7 @@ export const DATA = {
       description:
         "A full stack e-commerce project (MarketPlace) with it's store admin based on Medusa V1 and a search engine based on Meilisearch.",
       technologies: [
-        "Medusa.jd",
+        "Medusa.js",
         "Typescript",
         "Docker",
         "Ant Design",
