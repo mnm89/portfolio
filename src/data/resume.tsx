@@ -70,8 +70,8 @@ export const DATA = {
       location: "Remote",
       title: "Software Engineer",
       logoUrl: "/flexperto.svg",
-      start: "April 2021",
-      end: "August 2023",
+      start: "Apr 2021",
+      end: "Aug 2023",
       description:
         "Developed and optimized microservices for archiving & document management using Moleculer.js. Led the development of microfrontends using React.js, significantly improving modularity and reusability. Enhanced system monitoring by integrating Prometheus and Grafana dashboards. Improved business intelligence capabilities by implementing advanced MongoDB aggregation queries. Impact: Improved system performance, monitoring, and operational awareness for key Flexperto products.",
     },
