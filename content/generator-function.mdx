@@ -1,0 +1,83 @@
+---
+title: "Understanding Generator Functions in JavaScript"
+publishedAt: "2024-03-22"
+summary: "Learn how generator functions work and how they help manage complex asynchronous workflows."
+---
+
+## What Are Generator Functions?
+
+Generator functions in JavaScript allow you to pause and resume execution, making them useful for handling large data sets, iterators, and even asynchronous workflows.
+
+Unlike regular functions that run to completion once called, generators **yield** values one at a time, allowing controlled execution.
+
+---
+
+## Defining a Generator Function
+
+A generator function is defined using the `function*` syntax, and it uses the `yield` keyword to pause execution.
+
+```js
+function* numberGenerator() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const generator = numberGenerator();
+console.log(generator.next()); // { value: 1, done: false }
+console.log(generator.next()); // { value: 2, done: false }
+console.log(generator.next()); // { value: 3, done: false }
+console.log(generator.next()); // { value: undefined, done: true }
+```
+
+Each call to `.next()` resumes execution until the next `yield`, providing fine-grained control over execution.
+
+---
+
+## Practical Use Cases
+
+### 1. Iterating Over Large Data Sets
+
+Generators can handle large data sets efficiently without consuming too much memory.
+
+```js
+function* infiniteCounter() {
+  let i = 0;
+  while (true) {
+    yield i++;
+  }
+}
+
+const counter = infiniteCounter();
+console.log(counter.next().value); // 0
+console.log(counter.next().value); // 1
+console.log(counter.next().value); // 2
+```
+
+Since it generates values **lazily**, it avoids storing unnecessary data in memory.
+
+---
+
+### 2. Controlling Asynchronous Execution
+
+Generators can work with `yield` to handle async operations sequentially.
+
+```js
+function* fetchUserData() {
+  const user = yield fetch("https://jsonplaceholder.typicode.com/users/1").then(
+    (res) => res.json()
+  );
+  console.log(user);
+}
+
+const generator = fetchUserData();
+generator.next().value.then((user) => generator.next(user));
+```
+
+This technique was widely used before `async/await` became popular.
+
+---
+
+## Conclusion
+
+Generator functions are powerful tools for managing iterators, handling large data sets, and simplifying asynchronous workflows.

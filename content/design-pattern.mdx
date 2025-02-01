@@ -1,0 +1,31 @@
+---
+title: "The Power of Design Patterns"
+publishedAt: "2022-06-18"
+summary: "How design patterns help write scalable and maintainable code."
+---
+
+## Understanding Design Patterns
+
+Design patterns are reusable solutions to common software design problems. They help improve code maintainability and scalability.
+
+### Common Design Patterns
+
+1. **Singleton** – Ensures only one instance of a class exists.
+2. **Factory** – Creates objects without exposing the instantiation logic.
+3. **Observer** – Establishes a subscription mechanism between objects.
+
+### Example: Singleton Pattern in JavaScript
+
+```js
+class Singleton {
+  static instance;
+  constructor() {
+    if (!Singleton.instance) {
+      Singleton.instance = this;
+    }
+    return Singleton.instance;
+  }
+}
+```
+
+Design patterns are essential for writing clean and efficient code. Start exploring them to enhance your software development skills!

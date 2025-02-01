@@ -1,0 +1,90 @@
+---
+title: "Understanding Closures in JavaScript"
+publishedAt: "2024-07-01"
+summary: "A deep dive into closures, one of the most powerful concepts in JavaScript."
+---
+
+## What is a Closure?
+
+A **closure** is a function that remembers the variables from its lexical scope even when the function is executed outside that scope.
+
+This means a function can "remember" and access variables from where it was created, even after its outer function has finished execution.
+
+---
+
+## Example of a Closure
+
+```js
+function outerFunction(outerValue) {
+  return function innerFunction(innerValue) {
+    console.log(`Outer: ${outerValue}, Inner: ${innerValue}`);
+  };
+}
+
+const closureExample = outerFunction("Hello");
+closureExample("World"); // Output: Outer: Hello, Inner: World
+```
+
+Here’s what happens:
+
+1. `outerFunction("Hello")` executes and returns `innerFunction`.
+2. Even though `outerFunction` is finished, `closureExample` still has access to `outerValue`.
+3. When `closureExample("World")` is called, it **remembers** `outerValue = "Hello"` and prints the output.
+
+---
+
+## Why Are Closures Useful?
+
+Closures are used in **many real-world scenarios**, including:
+
+### 1. Data Privacy
+
+We can use closures to **create private variables** that can’t be accessed directly.
+
+```js
+function counter() {
+  let count = 0;
+
+  return {
+    increment: () => count++,
+    getCount: () => count,
+  };
+}
+
+const myCounter = counter();
+myCounter.increment();
+console.log(myCounter.getCount()); // Output: 1
+console.log(myCounter.count); // Undefined (count is private)
+```
+
+Since `count` is inside the closure, it can’t be modified from outside!
+
+---
+
+### 2. Function Factories
+
+Closures allow us to create **functions with pre-configured values**.
+
+```js
+function multiplier(factor) {
+  return function (number) {
+    return number * factor;
+  };
+}
+
+const double = multiplier(2);
+console.log(double(5)); // Output: 10
+
+const triple = multiplier(3);
+console.log(triple(5)); // Output: 15
+```
+
+Each function (`double`, `triple`) remembers the `factor` it was created with!
+
+---
+
+## Key Takeaways
+
+✅ **Closures allow functions to "remember" their lexical scope.**  
+✅ **They help in data encapsulation, function factories, and maintaining state.**  
+✅ **Closures power many JavaScript features like setTimeout, event listeners, and module patterns.**

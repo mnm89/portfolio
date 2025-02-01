@@ -1,0 +1,68 @@
+---
+title: "Demystifying the JavaScript Event Loop"
+publishedAt: "2024-05-15"
+summary: "Understanding how JavaScript handles asynchronous operations with the event loop."
+---
+
+## What is the JavaScript Event Loop?
+
+JavaScript is **single-threaded**, meaning it can only execute one task at a time. But how does it handle multiple tasks, like fetching data from an API while still responding to user interactions?
+
+Enter the **event loop**—a mechanism that manages asynchronous operations and ensures the execution of callbacks.
+
+---
+
+## Understanding the Event Loop in Action
+
+To see the event loop in motion, let’s analyze this code snippet:
+
+```js
+console.log("Start");
+
+setTimeout(() => {
+  console.log("Inside setTimeout");
+}, 0);
+
+Promise.resolve().then(() => console.log("Inside Promise"));
+
+console.log("End");
+```
+
+### Output:
+
+```
+Start
+End
+Inside Promise
+Inside setTimeout
+```
+
+### Why This Order?
+
+1. `console.log("Start")` executes first (synchronous code).
+2. `setTimeout` is sent to the **Web APIs** (does not block execution).
+3. The **Promise** callback goes to the **Microtask Queue**.
+4. `console.log("End")` executes.
+5. The **Microtask Queue** (Promise callback) executes before the **Callback Queue** (setTimeout).
+6. Finally, `setTimeout` executes.
+
+This happens because **Microtasks (Promises, MutationObservers) have higher priority** than Macrotasks (setTimeout, setInterval, etc.).
+
+---
+
+## Visualizing the Event Loop
+
+Imagine a **to-do list**:
+
+1. JavaScript **executes all synchronous code first** (Main Stack).
+2. Asynchronous tasks are sent to **Web APIs** (like `setTimeout`).
+3. Once the **Call Stack is empty**, the Event Loop checks the **Microtask Queue** (Promised tasks).
+4. After all **Microtasks** are processed, it picks up the **Macrotasks** (setTimeout, I/O).
+
+---
+
+## Key Takeaways
+
+✅ JavaScript executes synchronous code first.  
+✅ Promises (Microtasks) execute before setTimeout (Macrotasks).  
+✅ The Event Loop keeps the application responsive by handling async operations.

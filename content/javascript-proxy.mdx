@@ -1,0 +1,96 @@
+---
+title: "Mastering JavaScript Proxies"
+publishedAt: "2024-04-10"
+summary: "Learn how JavaScript Proxies work and how they can help you intercept and manipulate object behavior."
+---
+
+## What Are JavaScript Proxies?
+
+JavaScript **Proxies** provide a way to intercept and customize fundamental operations on objects, such as property access, assignment, and function calls.
+
+A `Proxy` acts as a wrapper around an object, allowing you to **control** and **modify** its behavior dynamically.
+
+---
+
+## Creating a Simple Proxy
+
+A proxy is created using the `new Proxy(target, handler)` syntax.
+
+```js
+const user = {
+  name: "Alice",
+  age: 25,
+};
+
+const handler = {
+  get(target, property) {
+    return property in target ? target[property] : "Property not found";
+  },
+};
+
+const proxyUser = new Proxy(user, handler);
+
+console.log(proxyUser.name); // "Alice"
+console.log(proxyUser.age); // 25
+console.log(proxyUser.email); // "Property not found"
+```
+
+Here, we **intercept** property access and return a default message if the property doesn’t exist.
+
+---
+
+## Practical Use Cases
+
+### 1. Validation
+
+Proxies can enforce rules when setting values.
+
+```js
+const person = {
+  age: 30,
+};
+
+const handler = {
+  set(target, property, value) {
+    if (property === "age" && typeof value !== "number") {
+      throw new Error("Age must be a number");
+    }
+    target[property] = value;
+    return true;
+  },
+};
+
+const proxyPerson = new Proxy(person, handler);
+
+proxyPerson.age = 35; // ✅ Works
+proxyPerson.age = "old"; // ❌ Throws "Age must be a number"
+```
+
+### 2. Auto-Logging
+
+Proxies can track when properties are accessed or modified.
+
+```js
+const data = { value: 42 };
+
+const logger = new Proxy(data, {
+  get(target, property) {
+    console.log(`Accessing ${property}: ${target[property]}`);
+    return target[property];
+  },
+  set(target, property, value) {
+    console.log(`Updating ${property} to ${value}`);
+    target[property] = value;
+    return true;
+  },
+});
+
+logger.value; // Logs: "Accessing value: 42"
+logger.value = 100; // Logs: "Updating value to 100"
+```
+
+---
+
+## Conclusion
+
+JavaScript **Proxies** are a powerful way to control how objects behave, enabling **validation, logging, security, and dynamic property management**.
