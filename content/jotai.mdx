@@ -1,0 +1,68 @@
+---
+title: "State Management with Jotai: A Simpler React Store"
+publishedAt: "2024-08-15"
+summary: "Learn how Jotai makes managing global state in React simpler with atoms, derived state, and async handling."
+---
+
+## What is Jotai?
+
+Jotai is a minimalistic state management library for React that simplifies global state handling using **atoms**. Unlike traditional state management solutions, Jotai allows you to define independent units of state that can be shared across components effortlessly.
+
+---
+
+## Getting Started with Jotai
+
+To use Jotai, install it via npm or yarn:
+
+```sh
+npm install jotai
+```
+
+Now, let’s create a simple **atom** (a unit of state) and use it inside a React component:
+
+```tsx
+import { atom, useAtom } from "jotai";
+
+const countAtom = atom(0); // Creating a shared state atom
+
+function Counter() {
+  const [count, setCount] = useAtom(countAtom);
+  return <button onClick={() => setCount(count + 1)}>Count: {count}</button>;
+}
+```
+
+Here, `countAtom` holds a shared state that `useAtom` can read and update across components.
+
+---
+
+## Practical Use Cases
+
+### 1. Derived State
+
+Jotai allows atoms to be computed based on other atoms, making it easy to derive state:
+
+```tsx
+const countAtom = atom(1);
+const doubleCountAtom = atom((get) => get(countAtom) * 2);
+```
+
+Now, any component using `doubleCountAtom` will automatically update when `countAtom` changes.
+
+### 2. Async State Handling
+
+You can also create **asynchronous atoms** to handle API requests seamlessly:
+
+```tsx
+const userAtom = atom(async () => {
+  const response = await fetch("https://api.example.com/user");
+  return response.json();
+});
+```
+
+Jotai’s built-in support for async atoms eliminates the need for `useEffect`.
+
+---
+
+## Conclusion
+
+Jotai provides a lightweight and flexible way to manage state in React applications with **less boilerplate** and **better performance**. It’s a great alternative to more complex state management libraries like Redux.
