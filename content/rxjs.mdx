@@ -1,0 +1,184 @@
+---
+title: "Advanced RxJS Use Cases"
+publishedAt: "2024-11-06"
+summary: "Exploring practical use cases of RxJS, including HTTP requests with retries, form validation, real-time search, WebSockets, event handling, API call combinations, and state management."
+---
+
+### RxJS in Action: Real-World Use Cases
+
+RxJS is a powerful library for handling asynchronous programming in JavaScript. Let's explore practical use cases where RxJS simplifies complex operations.
+
+---
+
+### 1. Handling HTTP Requests with Retries
+
+Network requests can sometimes fail due to temporary issues. RxJS allows retrying requests before giving up.
+
+```js
+import { HttpClient } from '@angular/common/http';
+import { catchError, retry } from 'rxjs/operators';
+import { of } from 'rxjs';
+
+constructor(private http: HttpClient) {}
+
+fetchData() {
+  this.http.get('https://api.example.com/data')
+    .pipe(
+      retry(3), // Retry up to 3 times
+      catchError(error => {
+        console.error('Request failed', error);
+        return of([]); // Return fallback data
+      })
+    )
+    .subscribe(data => console.log(data));
+}
+```
+
+---
+
+### 2. Form Validation using FormControl
+
+RxJS works well with Angular forms to validate user input dynamically.
+
+```js
+import { FormControl } from "@angular/forms";
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
+
+const usernameControl = new FormControl("");
+
+usernameControl.valueChanges
+  .pipe(debounceTime(300), distinctUntilChanged())
+  .subscribe((value) => console.log("Validated input:", value));
+```
+
+---
+
+### 3. Real-Time Search with Debouncing & distinctUntilChanged
+
+To prevent excessive API calls, debounce user input and ignore duplicate values.
+
+```js
+import { fromEvent } from "rxjs";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
+import { ajax } from "rxjs/ajax";
+
+const searchBox = document.getElementById("searchBox");
+const searchStream = fromEvent(searchBox, "input").pipe(
+  debounceTime(300),
+  distinctUntilChanged(),
+  switchMap((event) =>
+    ajax.getJSON(`https://api.example.com/search?q=${event.target.value}`)
+  )
+);
+
+searchStream.subscribe((results) => console.log("Search results:", results));
+```
+
+---
+
+### 4. WebSockets Using rxjs/webSocket
+
+Real-time applications often use WebSockets for live updates.
+
+```js
+import { webSocket } from "rxjs/webSocket";
+
+const socket$ = webSocket("wss://example.com/socket");
+
+socket$.subscribe(
+  (message) => console.log("Received:", message),
+  (err) => console.error("Error:", err),
+  () => console.log("Connection closed")
+);
+```
+
+---
+
+### 5. Event Handling with Throttling
+
+Throttling prevents excessive event firing for actions like button clicks or scrolls.
+
+```js
+import { fromEvent } from "rxjs";
+import { throttleTime } from "rxjs/operators";
+
+const button = document.getElementById("myButton");
+
+fromEvent(button, "click")
+  .pipe(throttleTime(1000)) // Allow one click per second
+  .subscribe(() => console.log("Button clicked!"));
+```
+
+---
+
+### 6. Combining Multiple API Calls
+
+Sometimes, we need to fetch multiple resources and combine the results.
+
+```js
+import { forkJoin } from "rxjs";
+import { ajax } from "rxjs/ajax";
+
+forkJoin({
+  user: ajax.getJSON("https://api.example.com/user/1"),
+  posts: ajax.getJSON("https://api.example.com/user/1/posts"),
+}).subscribe(({ user, posts }) => {
+  console.log("User:", user);
+  console.log("Posts:", posts);
+});
+```
+
+Using `mergeMap`, we can perform dependent API calls.
+
+```js
+import { of } from "rxjs";
+import { mergeMap } from "rxjs/operators";
+import { ajax } from "rxjs/ajax";
+
+of(1)
+  .pipe(
+    mergeMap((userId) =>
+      ajax.getJSON(`https://api.example.com/user/${userId}`)
+    ),
+    mergeMap((user) =>
+      ajax.getJSON(`https://api.example.com/user/${user.id}/posts`)
+    )
+  )
+  .subscribe((posts) => console.log("User posts:", posts));
+```
+
+---
+
+### 7. Simple State Management with BehaviorSubject
+
+A **BehaviorSubject** can act as a simple store to manage and share state across components.
+
+```js
+import { BehaviorSubject } from "rxjs";
+
+const store = new BehaviorSubject({ user: null });
+
+function updateUser(newUser) {
+  store.next({ ...store.value, user: newUser });
+}
+
+store.asObservable().subscribe((state) => console.log("Current state:", state));
+
+updateUser({ name: "Alice", age: 30 });
+```
+
+---
+
+### Conclusion
+
+RxJS simplifies handling complex asynchronous operations in JavaScript. In this guide, we covered:
+
+- **HTTP requests with retries** for better error handling.
+- **Form validation** to dynamically validate user input.
+- **Debounced real-time search** to optimize API calls.
+- **WebSockets** for real-time communication.
+- **Event handling with throttling** to prevent excessive events.
+- **Combining multiple API calls** with `forkJoin` and `mergeMap`.
+- **State management** using `BehaviorSubject`.
+
+By leveraging RxJS, you can create more responsive, scalable, and maintainable applications!
