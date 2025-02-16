@@ -120,6 +120,37 @@ export const DATA = {
   ],
   projects: [
     {
+      title: "Supabase Webhooks & Resend Emails",
+      href: "#",
+      dates: "Feb 2025 - Feb 2025",
+      active: true,
+      description:
+        "A code sample + demo to show a use case of supabase auth hook and database hook and sending custom react email templates via Resend api or smtp configuration (nodemailer)",
+      technologies: [
+        "Next.js",
+        "Typescript",
+        "PostgreSQL",
+        "TailwindCSS",
+        "Shadcn UI",
+        "Supabase",
+        "Resend",
+      ],
+      links: [
+        {
+          type: "Website",
+          href: "https://supabase-resend-emails.mnmabrouk.com/",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "Source",
+          href: "https://github.com/mnm89/supabase-resend-emails",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "",
+      video: "",
+    },
+    {
       title: "Next Vision Consulting",
       href: "#",
       dates: "Oct 2024 - Feb 2025",
