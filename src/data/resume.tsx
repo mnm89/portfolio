@@ -137,11 +137,6 @@ export const DATA = {
       ],
       links: [
         {
-          type: "Website",
-          href: "https://supabase-resend-emails.mnmabrouk.com/",
-          icon: <Icons.globe className="size-3" />,
-        },
-        {
           type: "Source",
           href: "https://github.com/mnm89/supabase-resend-emails",
           icon: <Icons.github className="size-3" />,
@@ -218,11 +213,6 @@ export const DATA = {
       ],
       links: [
         {
-          type: "Demo",
-          href: "https://mnm-zform.vercel.app",
-          icon: <Icons.globe className="size-3" />,
-        },
-        {
           type: "Source",
           href: "https://github.com/mnm89/zform",
           icon: <Icons.github className="size-3" />,
@@ -240,11 +230,6 @@ export const DATA = {
         "The StepWizard component is a flexible and customizable stepper component designed to guide users through a multi-step process, such as onboarding, surveys, or forms. It simplifies the implementation of complex workflows by managing steps and transitions seamlessly.",
       technologies: ["Next.js", "Typescript", "TailwindCSS", "Shadcn UI"],
       links: [
-        {
-          type: "Demo",
-          href: "https://step-wizard.vercel.app",
-          icon: <Icons.globe className="size-3" />,
-        },
         {
           type: "Source",
           href: "https://github.com/mnm89/step-wizard",
