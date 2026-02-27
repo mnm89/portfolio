@@ -1,0 +1,189 @@
+---
+title: "Next.js App Router Deep Dive"
+publishedAt: "2025-01-05"
+summary: "A comprehensive guide to Next.js App Router — layouts, loading states, error handling, parallel routes, and server actions."
+category: "React"
+---
+
+### The App Router
+
+Next.js App Router (introduced in v13.4) rethinks how you build React applications. It's built on React Server Components and uses file-system conventions for routing.
+
+---
+
+### 1. Layouts and Templates
+
+Layouts persist across navigations. Templates re-mount on every navigation:
+
+```
+app/
+├── layout.tsx       ← Root layout (wraps everything)
+├── page.tsx         ← Home page (/)
+├── blog/
+│   ├── layout.tsx   ← Blog layout (wraps all blog pages)
+│   ├── page.tsx     ← Blog list (/blog)
+│   └── [slug]/
+│       └── page.tsx ← Blog post (/blog/my-post)
+└── dashboard/
+    ├── template.tsx ← Re-mounts on each navigation
+    └── page.tsx
+```
+
+```tsx
+// app/blog/layout.tsx
+export default function BlogLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="max-w-3xl mx-auto">
+      <nav>Blog Navigation</nav>
+      {children}
+    </div>
+  );
+}
+```
+
+---
+
+### 2. Loading and Error States
+
+Use special files for loading and error UI:
+
+```
+app/dashboard/
+├── loading.tsx   ← Shown while page is loading
+├── error.tsx     ← Shown on error (client component)
+├── not-found.tsx ← Shown for 404s
+└── page.tsx
+```
+
+```tsx
+// app/dashboard/loading.tsx
+export default function Loading() {
+  return <div className="animate-pulse">Loading dashboard...</div>;
+}
+```
+
+```tsx
+// app/dashboard/error.tsx
+"use client";
+
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error;
+  reset: () => void;
+}) {
+  return (
+    <div>
+      <h2>Something went wrong!</h2>
+      <button onClick={reset}>Try again</button>
+    </div>
+  );
+}
+```
+
+---
+
+### 3. Server Actions
+
+Mutate data without API routes using Server Actions:
+
+```tsx
+// app/blog/new/page.tsx
+import { redirect } from "next/navigation";
+
+async function createPost(formData: FormData) {
+  "use server";
+
+  const title = formData.get("title") as string;
+  const content = formData.get("content") as string;
+
+  await db.post.create({ data: { title, content } });
+  redirect("/blog");
+}
+
+export default function NewPost() {
+  return (
+    <form action={createPost}>
+      <input name="title" placeholder="Title" required />
+      <textarea name="content" placeholder="Content" required />
+      <button type="submit">Publish</button>
+    </form>
+  );
+}
+```
+
+---
+
+### 4. Parallel Routes
+
+Render multiple pages simultaneously in the same layout:
+
+```
+app/dashboard/
+├── layout.tsx
+├── page.tsx
+├── @analytics/
+│   └── page.tsx
+└── @team/
+    └── page.tsx
+```
+
+```tsx
+// app/dashboard/layout.tsx
+export default function DashboardLayout({
+  children,
+  analytics,
+  team,
+}: {
+  children: React.ReactNode;
+  analytics: React.ReactNode;
+  team: React.ReactNode;
+}) {
+  return (
+    <div>
+      {children}
+      <div className="grid grid-cols-2 gap-4">
+        {analytics}
+        {team}
+      </div>
+    </div>
+  );
+}
+```
+
+---
+
+### 5. Route Handlers
+
+For cases where you do need API endpoints:
+
+```ts
+// app/api/posts/route.ts
+import { NextResponse } from "next/server";
+
+export async function GET() {
+  const posts = await db.post.findMany();
+  return NextResponse.json(posts);
+}
+
+export async function POST(request: Request) {
+  const body = await request.json();
+  const post = await db.post.create({ data: body });
+  return NextResponse.json(post, { status: 201 });
+}
+```
+
+---
+
+### Key Takeaways
+
+- **Layouts** share UI across routes without re-rendering
+- **Loading/error files** provide automatic UX for async states
+- **Server Actions** eliminate boilerplate for mutations
+- **Parallel routes** enable complex dashboard-style layouts
+- Prefer **Server Components** by default; opt into client only when needed

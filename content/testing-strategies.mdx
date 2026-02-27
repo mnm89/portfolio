@@ -1,0 +1,199 @@
+---
+title: "Testing Strategies for Modern Web Apps"
+publishedAt: "2024-11-20"
+summary: "A practical guide to testing web applications — unit tests, integration tests, end-to-end tests, and when to use each approach."
+category: "Software Engineering"
+---
+
+### The Testing Pyramid
+
+A healthy test suite has different types of tests at different levels of granularity:
+
+```
+        /  E2E  \        ← Few, slow, high confidence
+       /----------\
+      / Integration \    ← Moderate count
+     /----------------\
+    /    Unit Tests     \ ← Many, fast, focused
+```
+
+---
+
+### 1. Unit Tests
+
+Test individual functions and modules in isolation:
+
+```ts
+// utils.test.ts
+import { formatPrice, slugify } from "./utils";
+
+describe("formatPrice", () => {
+  it("formats cents to dollars", () => {
+    expect(formatPrice(1999)).toBe("$19.99");
+  });
+
+  it("handles zero", () => {
+    expect(formatPrice(0)).toBe("$0.00");
+  });
+
+  it("handles large amounts", () => {
+    expect(formatPrice(100000)).toBe("$1,000.00");
+  });
+});
+
+describe("slugify", () => {
+  it("converts to lowercase kebab-case", () => {
+    expect(slugify("Hello World")).toBe("hello-world");
+  });
+
+  it("removes special characters", () => {
+    expect(slugify("What's New?")).toBe("whats-new");
+  });
+});
+```
+
+**When to use:** Pure functions, utilities, business logic, data transformations.
+
+---
+
+### 2. Integration Tests
+
+Test how multiple units work together:
+
+```ts
+// api/users.test.ts
+import { createApp } from "../app";
+import { db } from "../db";
+
+const app = createApp();
+
+beforeEach(async () => {
+  await db.migrate.latest();
+  await db.seed.run();
+});
+
+afterEach(async () => {
+  await db.migrate.rollback();
+});
+
+describe("POST /api/users", () => {
+  it("creates a user and returns 201", async () => {
+    const response = await app.inject({
+      method: "POST",
+      url: "/api/users",
+      payload: {
+        name: "Alice",
+        email: "alice@example.com",
+      },
+    });
+
+    expect(response.statusCode).toBe(201);
+    const body = JSON.parse(response.body);
+    expect(body.name).toBe("Alice");
+    expect(body.id).toBeDefined();
+  });
+
+  it("returns 422 for invalid email", async () => {
+    const response = await app.inject({
+      method: "POST",
+      url: "/api/users",
+      payload: { name: "Bob", email: "not-an-email" },
+    });
+
+    expect(response.statusCode).toBe(422);
+  });
+});
+```
+
+**When to use:** API endpoints, database interactions, service-to-service communication.
+
+---
+
+### 3. Component Tests (React)
+
+Test UI components with their behavior:
+
+```tsx
+// UserCard.test.tsx
+import { render, screen, fireEvent } from "@testing-library/react";
+import { UserCard } from "./UserCard";
+
+describe("UserCard", () => {
+  const user = { name: "Alice", role: "Engineer", avatar: "/alice.png" };
+
+  it("renders user information", () => {
+    render(<UserCard user={user} />);
+
+    expect(screen.getByText("Alice")).toBeInTheDocument();
+    expect(screen.getByText("Engineer")).toBeInTheDocument();
+  });
+
+  it("calls onEdit when edit button is clicked", () => {
+    const onEdit = jest.fn();
+    render(<UserCard user={user} onEdit={onEdit} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /edit/i }));
+    expect(onEdit).toHaveBeenCalledWith(user);
+  });
+});
+```
+
+---
+
+### 4. End-to-End Tests
+
+Test complete user flows through the real application:
+
+```ts
+// checkout.spec.ts (Playwright)
+import { test, expect } from "@playwright/test";
+
+test("complete checkout flow", async ({ page }) => {
+  await page.goto("/products");
+
+  // Add item to cart
+  await page.click('[data-testid="product-add-btn"]');
+  await expect(page.locator(".cart-count")).toHaveText("1");
+
+  // Go to checkout
+  await page.click('[data-testid="cart-icon"]');
+  await page.click("text=Proceed to Checkout");
+
+  // Fill shipping info
+  await page.fill('[name="address"]', "123 Main St");
+  await page.fill('[name="city"]', "Berlin");
+  await page.fill('[name="zip"]', "10115");
+
+  // Complete order
+  await page.click("text=Place Order");
+  await expect(page).toHaveURL(/\/order-confirmation/);
+  await expect(page.locator("h1")).toHaveText("Order Confirmed!");
+});
+```
+
+**When to use:** Critical user journeys, checkout flows, authentication, multi-step forms.
+
+---
+
+### 5. What to Test (and What Not To)
+
+**Do test:**
+- Business logic and calculations
+- API request/response contracts
+- User interaction flows
+- Edge cases and error handling
+
+**Don't test:**
+- Third-party library internals
+- Implementation details (private methods, internal state)
+- Styling or pixel-perfect layouts
+- Code that's trivially simple
+
+---
+
+### Key Takeaways
+
+- **Unit tests** are fast and cheap — write many of them
+- **Integration tests** catch issues between components
+- **E2E tests** validate real user journeys but are slow — keep them focused
+- Test **behavior**, not implementation — your tests should survive refactors

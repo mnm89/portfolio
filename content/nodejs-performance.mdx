@@ -1,0 +1,173 @@
+---
+title: "Node.js Performance Optimization"
+publishedAt: "2025-02-20"
+summary: "Practical techniques for improving Node.js application performance — from event loop optimization to caching, streaming, and profiling."
+category: "Node.js"
+---
+
+### Performance in Node.js
+
+Node.js is single-threaded by design. Understanding how the event loop works — and how to avoid blocking it — is the foundation of writing performant Node applications.
+
+---
+
+### 1. Don't Block the Event Loop
+
+CPU-intensive operations block all other requests. Move heavy work off the main thread:
+
+```js
+import { Worker } from "worker_threads";
+
+function runWorker(data) {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker("./heavy-task.js", {
+      workerData: data,
+    });
+    worker.on("message", resolve);
+    worker.on("error", reject);
+  });
+}
+
+// Main thread stays responsive
+app.post("/process", async (req, res) => {
+  const result = await runWorker(req.body);
+  res.json(result);
+});
+```
+
+---
+
+### 2. Use Streams for Large Data
+
+Don't load entire files into memory. Use streams:
+
+```js
+import { createReadStream } from "fs";
+import { pipeline } from "stream/promises";
+import { createGzip } from "zlib";
+
+app.get("/download/:file", async (req, res) => {
+  const fileStream = createReadStream(`./data/${req.params.file}`);
+
+  res.setHeader("Content-Encoding", "gzip");
+  res.setHeader("Content-Type", "application/octet-stream");
+
+  await pipeline(fileStream, createGzip(), res);
+});
+```
+
+For JSON processing of large datasets:
+
+```js
+import { Transform } from "stream";
+
+const jsonTransform = new Transform({
+  objectMode: true,
+  transform(chunk, encoding, callback) {
+    const processed = processRecord(chunk);
+    callback(null, processed);
+  },
+});
+
+await pipeline(dataSource, jsonTransform, outputDestination);
+```
+
+---
+
+### 3. Caching Strategies
+
+**In-memory caching** for hot data:
+
+```js
+import { LRUCache } from "lru-cache";
+
+const cache = new LRUCache({
+  max: 500,
+  ttl: 1000 * 60 * 5, // 5 minutes
+});
+
+async function getUser(id) {
+  const cached = cache.get(id);
+  if (cached) return cached;
+
+  const user = await db.user.findUnique({ where: { id } });
+  cache.set(id, user);
+  return user;
+}
+```
+
+**HTTP caching** for API responses:
+
+```js
+app.get("/api/products", async (req, res) => {
+  res.setHeader("Cache-Control", "public, max-age=300, stale-while-revalidate=60");
+  const products = await getProducts();
+  res.json(products);
+});
+```
+
+---
+
+### 4. Database Query Optimization
+
+Avoid N+1 queries by batching and eager loading:
+
+```js
+// Bad: N+1 queries
+const users = await db.user.findMany();
+for (const user of users) {
+  user.posts = await db.post.findMany({ where: { authorId: user.id } });
+}
+
+// Good: eager loading
+const users = await db.user.findMany({
+  include: { posts: true },
+});
+
+// Good: manual batching
+const users = await db.user.findMany();
+const userIds = users.map((u) => u.id);
+const posts = await db.post.findMany({
+  where: { authorId: { in: userIds } },
+});
+```
+
+---
+
+### 5. Profiling and Monitoring
+
+**Built-in profiler:**
+
+```bash
+node --prof app.js
+# Generate load, then process the log:
+node --prof-process isolate-*.log > profile.txt
+```
+
+**Measure specific operations:**
+
+```js
+import { performance, PerformanceObserver } from "perf_hooks";
+
+const obs = new PerformanceObserver((list) => {
+  for (const entry of list.getEntries()) {
+    console.log(`${entry.name}: ${entry.duration.toFixed(2)}ms`);
+  }
+});
+obs.observe({ entryTypes: ["measure"] });
+
+performance.mark("query-start");
+await db.query(complexQuery);
+performance.mark("query-end");
+performance.measure("db-query", "query-start", "query-end");
+```
+
+---
+
+### Key Takeaways
+
+- **Never block the event loop** — offload CPU work to worker threads
+- **Stream large data** instead of buffering it in memory
+- **Cache aggressively** at multiple layers (in-memory, HTTP, CDN)
+- **Profile before optimizing** — measure, don't guess
+- **Batch database queries** to avoid N+1 patterns

@@ -1,0 +1,149 @@
+---
+title: "Docker Essentials for Developers"
+publishedAt: "2025-02-10"
+summary: "Learn how to containerize applications with Docker — from writing Dockerfiles to multi-stage builds and docker-compose workflows."
+category: "DevOps"
+---
+
+### Why Docker?
+
+Docker packages your application and its dependencies into a **container** — a lightweight, portable unit that runs the same everywhere. No more "it works on my machine."
+
+---
+
+### 1. Writing a Dockerfile
+
+A Dockerfile describes how to build your container image:
+
+```dockerfile
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml ./
+RUN corepack enable && pnpm install --frozen-lockfile
+
+COPY . .
+
+RUN pnpm build
+
+EXPOSE 3000
+CMD ["pnpm", "start"]
+```
+
+Build and run:
+
+```bash
+docker build -t my-app .
+docker run -p 3000:3000 my-app
+```
+
+---
+
+### 2. Multi-Stage Builds
+
+Reduce final image size by separating build and runtime stages:
+
+```dockerfile
+# Build stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN corepack enable && pnpm install --frozen-lockfile
+COPY . .
+RUN pnpm build
+
+# Runtime stage
+FROM node:20-alpine AS runner
+WORKDIR /app
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+
+EXPOSE 3000
+CMD ["pnpm", "start"]
+```
+
+The final image only contains what's needed to run, not to build.
+
+---
+
+### 3. Docker Compose for Local Development
+
+Define multi-service setups declaratively:
+
+```yaml
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://user:pass@db:5432/mydb
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: mydb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata:
+```
+
+Start everything with:
+
+```bash
+docker compose up -d
+```
+
+---
+
+### 4. Useful Docker Commands
+
+```bash
+# List running containers
+docker ps
+
+# View logs
+docker logs -f <container_id>
+
+# Execute a command in a running container
+docker exec -it <container_id> sh
+
+# Remove all stopped containers
+docker container prune
+
+# Remove unused images
+docker image prune -a
+```
+
+---
+
+### 5. Best Practices
+
+- **Use `.dockerignore`** to exclude `node_modules`, `.git`, and build artifacts
+- **Pin base image versions** (e.g., `node:20.11-alpine` not `node:latest`)
+- **Leverage layer caching** by copying dependency files before source code
+- **Run as non-root** user in production containers
+- **Use health checks** to let orchestrators monitor container state
+
+```dockerfile
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/api/health || exit 1
+```
+
+---
+
+### Key Takeaways
+
+Docker eliminates environment inconsistencies, simplifies onboarding, and provides a consistent deployment target. Master Dockerfiles, multi-stage builds, and docker-compose to streamline your development workflow.
