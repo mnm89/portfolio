@@ -1,3 +1,4 @@
+import { CopyCodeInjector } from "@/components/copy-code-button";
 import { getBlogPosts, getPost } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { formatDate } from "@/lib/utils";
@@ -98,10 +99,12 @@ export default async function Blog({
           </p>
         </Suspense>
       </div>
-      <article
-        className="prose dark:prose-invert"
-        dangerouslySetInnerHTML={{ __html: post.source }}
-      ></article>
+      <CopyCodeInjector>
+        <article
+          className="prose dark:prose-invert"
+          dangerouslySetInnerHTML={{ __html: post.source }}
+        ></article>
+      </CopyCodeInjector>
     </section>
   );
 }

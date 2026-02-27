@@ -82,6 +82,21 @@
   pre {
     @apply !px-0 rounded-lg overflow-x-auto py-4;
     background-color: var(--shiki-light-bg) !important;
+    position: relative;
+  }
+
+  .copy-code-btn {
+    @apply absolute top-2 right-2 p-1.5 rounded-md opacity-0 transition-opacity duration-200 cursor-pointer;
+    color: var(--muted-foreground);
+    background-color: hsl(var(--muted));
+  }
+
+  .copy-code-btn:hover {
+    background-color: hsl(var(--accent));
+  }
+
+  pre:hover .copy-code-btn {
+    @apply opacity-100;
   }
 
   .dark pre {
