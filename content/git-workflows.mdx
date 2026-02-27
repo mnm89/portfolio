@@ -1,0 +1,134 @@
+---
+title: "Git Workflows for Teams"
+publishedAt: "2024-12-20"
+summary: "Compare popular Git workflows — trunk-based development, GitHub Flow, and Gitflow — and learn which one fits your team."
+category: "Software Engineering"
+---
+
+### Choosing a Git Workflow
+
+The right Git workflow depends on your team size, release cadence, and deployment strategy. Let's compare the most popular approaches.
+
+---
+
+### 1. Trunk-Based Development
+
+Everyone commits to `main` (trunk) with very short-lived feature branches (hours, not days):
+
+```
+main ──●──●──●──●──●──●──●──●──
+        \  /     \  /
+         ●        ●
+      (feature) (hotfix)
+```
+
+**Rules:**
+- Feature branches live < 1 day
+- All commits go through CI before merging
+- Feature flags gate incomplete work
+
+```bash
+git checkout -b feat/add-search
+# ... work for a few hours ...
+git push origin feat/add-search
+# Open PR, get review, merge same day
+```
+
+**Best for:** Teams with strong CI/CD, continuous deployment, and feature flag infrastructure.
+
+---
+
+### 2. GitHub Flow
+
+A simplified model with one rule: `main` is always deployable.
+
+```
+main ──●──────────●──────────●──
+        \        / \        /
+         ●──●──●    ●──●──●
+        (feature)   (feature)
+```
+
+**Process:**
+1. Create a branch from `main`
+2. Add commits
+3. Open a Pull Request
+4. Discuss and review
+5. Merge to `main`
+6. Deploy
+
+```bash
+git checkout -b feature/user-profile
+git commit -m "Add user profile page"
+git commit -m "Add avatar upload"
+git push origin feature/user-profile
+# Open PR → review → merge → deploy
+```
+
+**Best for:** Most web development teams. Simple, effective, and works well with CI/CD.
+
+---
+
+### 3. Gitflow
+
+A structured model with dedicated branches for features, releases, and hotfixes:
+
+```
+main    ──●─────────────────●──────●──
+           \               / \    /
+develop ────●──●──●──●──●────●──●──
+              \  /     \  /
+               ●        ●
+           (feature) (feature)
+```
+
+**Branches:**
+- `main` — production releases only
+- `develop` — integration branch
+- `feature/*` — new features
+- `release/*` — release preparation
+- `hotfix/*` — urgent production fixes
+
+**Best for:** Projects with scheduled releases, multiple environments, or versioned software (libraries, mobile apps).
+
+---
+
+### 4. Practical Git Tips
+
+**Interactive rebase for clean history:**
+
+```bash
+git rebase -i HEAD~3
+# Squash, reword, or reorder commits
+```
+
+**Conventional commits for automated changelogs:**
+
+```
+feat: add user authentication
+fix: resolve race condition in websocket handler
+docs: update API reference
+refactor: extract validation logic
+```
+
+**Protect your main branch:**
+
+```yaml
+# GitHub branch protection rules
+- Require pull request reviews (1+)
+- Require status checks to pass
+- Require linear history
+- No force pushes
+```
+
+---
+
+### Key Takeaways
+
+| Workflow | Complexity | Best For |
+|----------|-----------|----------|
+| Trunk-based | Low | Continuous deployment |
+| GitHub Flow | Low | Most web teams |
+| Gitflow | High | Versioned releases |
+
+Start with **GitHub Flow** unless you have a specific reason to need more structure. Add complexity only when your process demands it.

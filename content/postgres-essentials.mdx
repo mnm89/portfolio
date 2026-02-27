@@ -1,0 +1,167 @@
+---
+title: "PostgreSQL Essentials for Backend Developers"
+publishedAt: "2024-08-01"
+summary: "Essential PostgreSQL knowledge for backend developers — indexes, JSON operations, window functions, CTEs, and performance tuning."
+category: "Databases"
+---
+
+### Why PostgreSQL?
+
+PostgreSQL is the most advanced open-source relational database. It supports JSON, full-text search, geospatial data, and advanced indexing — making it a versatile choice for modern applications.
+
+---
+
+### 1. Indexes That Matter
+
+Indexes speed up reads but slow down writes. Use them strategically:
+
+```sql
+-- B-tree (default) — equality and range queries
+CREATE INDEX idx_users_email ON users (email);
+
+-- Partial index — only index relevant rows
+CREATE INDEX idx_active_users ON users (email)
+  WHERE active = true;
+
+-- Composite index — for multi-column queries
+CREATE INDEX idx_posts_author_date ON posts (author_id, created_at DESC);
+
+-- GIN index — for JSONB and array columns
+CREATE INDEX idx_posts_tags ON posts USING GIN (tags);
+```
+
+Check if your queries use indexes:
+
+```sql
+EXPLAIN ANALYZE
+SELECT * FROM users WHERE email = 'alice@example.com';
+```
+
+---
+
+### 2. JSONB Operations
+
+Store and query semi-structured data:
+
+```sql
+-- Create a table with JSONB
+CREATE TABLE events (
+  id SERIAL PRIMARY KEY,
+  data JSONB NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Insert JSON data
+INSERT INTO events (data) VALUES
+  ('{"type": "click", "page": "/home", "user_id": 42}');
+
+-- Query JSON fields
+SELECT data->>'type' AS event_type,
+       data->>'page' AS page
+FROM events
+WHERE data->>'user_id' = '42';
+
+-- Query nested JSON
+SELECT data->'metadata'->>'browser' AS browser
+FROM events
+WHERE data @> '{"type": "click"}';
+```
+
+---
+
+### 3. Window Functions
+
+Perform calculations across related rows without collapsing them:
+
+```sql
+-- Rank users by post count
+SELECT
+  name,
+  post_count,
+  RANK() OVER (ORDER BY post_count DESC) AS rank
+FROM users;
+
+-- Running total of revenue by month
+SELECT
+  date_trunc('month', created_at) AS month,
+  amount,
+  SUM(amount) OVER (ORDER BY created_at) AS running_total
+FROM payments;
+
+-- Compare each row to the previous one
+SELECT
+  date,
+  revenue,
+  revenue - LAG(revenue) OVER (ORDER BY date) AS daily_change
+FROM daily_metrics;
+```
+
+---
+
+### 4. Common Table Expressions (CTEs)
+
+Break complex queries into readable steps:
+
+```sql
+WITH active_authors AS (
+  SELECT author_id, COUNT(*) AS post_count
+  FROM posts
+  WHERE created_at > NOW() - INTERVAL '30 days'
+  GROUP BY author_id
+  HAVING COUNT(*) >= 3
+),
+author_details AS (
+  SELECT u.id, u.name, u.email, a.post_count
+  FROM users u
+  JOIN active_authors a ON u.id = a.author_id
+)
+SELECT name, email, post_count
+FROM author_details
+ORDER BY post_count DESC;
+```
+
+---
+
+### 5. Performance Tuning Tips
+
+**Connection pooling** — don't open a new connection per request:
+
+```
+# Use PgBouncer or built-in pool
+DATABASE_URL=postgres://user:pass@localhost:6432/mydb?pgbouncer=true
+```
+
+**Vacuum and analyze** — keep statistics fresh:
+
+```sql
+-- Manual vacuum (usually auto-vacuum handles this)
+VACUUM ANALYZE users;
+
+-- Check table bloat
+SELECT relname, n_dead_tup, n_live_tup
+FROM pg_stat_user_tables
+ORDER BY n_dead_tup DESC;
+```
+
+**Monitor slow queries:**
+
+```sql
+-- Enable slow query logging in postgresql.conf
+-- log_min_duration_statement = 100  (ms)
+
+-- Find slow queries
+SELECT query, calls, mean_exec_time, total_exec_time
+FROM pg_stat_statements
+ORDER BY mean_exec_time DESC
+LIMIT 10;
+```
+
+---
+
+### Key Takeaways
+
+- **Index strategically** — use partial and composite indexes for your query patterns
+- **Leverage JSONB** for flexible schemas without losing query power
+- **Window functions** solve ranking, running totals, and row comparisons elegantly
+- **CTEs** make complex queries readable and maintainable
+- **Monitor and tune** — use `EXPLAIN ANALYZE` and `pg_stat_statements`

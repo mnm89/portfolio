@@ -1,0 +1,151 @@
+---
+title: "RESTful API Design Best Practices"
+publishedAt: "2024-10-12"
+summary: "Learn how to design clean, consistent, and developer-friendly REST APIs — covering naming conventions, status codes, pagination, and versioning."
+category: "Software Engineering"
+---
+
+### Designing APIs That Developers Love
+
+A well-designed REST API is intuitive, consistent, and predictable. Here are battle-tested practices for building APIs that scale.
+
+---
+
+### 1. Resource Naming
+
+Use **nouns** (not verbs) and **plural forms** for resource endpoints:
+
+```
+✅ GET    /api/users          — List users
+✅ GET    /api/users/123      — Get a specific user
+✅ POST   /api/users          — Create a user
+✅ PATCH  /api/users/123      — Update a user
+✅ DELETE /api/users/123      — Delete a user
+
+❌ GET    /api/getUsers
+❌ POST   /api/createUser
+❌ GET    /api/user/list
+```
+
+For nested resources, use clear hierarchies:
+
+```
+GET /api/users/123/posts        — User's posts
+GET /api/users/123/posts/456    — Specific post by user
+```
+
+---
+
+### 2. HTTP Status Codes
+
+Use the right status code for every response:
+
+```
+2xx Success
+├── 200 OK              — General success
+├── 201 Created         — Resource created (POST)
+└── 204 No Content      — Success with no body (DELETE)
+
+4xx Client Errors
+├── 400 Bad Request     — Invalid input
+├── 401 Unauthorized    — Not authenticated
+├── 403 Forbidden       — Not authorized
+├── 404 Not Found       — Resource doesn't exist
+├── 409 Conflict        — Resource conflict (duplicate)
+└── 422 Unprocessable   — Validation error
+
+5xx Server Errors
+└── 500 Internal Error  — Unexpected server failure
+```
+
+---
+
+### 3. Consistent Error Responses
+
+Always return structured error objects:
+
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid request body",
+    "details": [
+      {
+        "field": "email",
+        "message": "Must be a valid email address"
+      },
+      {
+        "field": "age",
+        "message": "Must be a positive integer"
+      }
+    ]
+  }
+}
+```
+
+---
+
+### 4. Pagination
+
+For list endpoints, support **cursor-based** or **offset-based** pagination:
+
+```
+# Offset-based
+GET /api/posts?page=2&limit=20
+
+# Cursor-based (preferred for large datasets)
+GET /api/posts?cursor=abc123&limit=20
+```
+
+Response with pagination metadata:
+
+```json
+{
+  "data": [...],
+  "pagination": {
+    "total": 150,
+    "limit": 20,
+    "nextCursor": "def456",
+    "hasMore": true
+  }
+}
+```
+
+---
+
+### 5. Filtering and Sorting
+
+Use query parameters for filtering and sorting:
+
+```
+GET /api/posts?status=published&author=123
+GET /api/posts?sort=-createdAt,title
+GET /api/posts?fields=id,title,summary
+```
+
+Prefix with `-` for descending sort. Use `fields` for sparse fieldsets.
+
+---
+
+### 6. API Versioning
+
+Version your API from day one:
+
+```
+# URL path versioning (most common)
+/api/v1/users
+/api/v2/users
+
+# Header versioning
+Accept: application/vnd.myapp.v2+json
+```
+
+---
+
+### Key Takeaways
+
+- Use **plural nouns** for resources, let HTTP methods convey the action
+- Return **appropriate status codes** — not just 200 and 500
+- Provide **structured errors** with actionable detail
+- Support **pagination** on all list endpoints
+- **Version your API** from the start — breaking changes are inevitable

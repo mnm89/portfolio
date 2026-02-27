@@ -1,0 +1,143 @@
+---
+title: "Understanding React Server Components"
+publishedAt: "2025-01-28"
+summary: "Explore how React Server Components work, when to use them, and how they change the way we think about data fetching and rendering in React."
+category: "React"
+---
+
+### What Are React Server Components?
+
+React Server Components (RSC) are components that **run exclusively on the server**. They can access databases, file systems, and other server-side resources directly — without sending that code to the client.
+
+---
+
+### 1. Server vs Client Components
+
+In Next.js App Router, every component is a **Server Component** by default:
+
+```tsx
+// This runs on the server — no "use client" directive
+async function UserList() {
+  const users = await db.user.findMany();
+
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+Add `"use client"` only when you need interactivity:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  );
+}
+```
+
+---
+
+### 2. Benefits of Server Components
+
+- **Zero client-side JavaScript** for server components
+- **Direct data access** — no API layer needed for reads
+- **Smaller bundles** — heavy libraries (e.g., markdown parsers, syntax highlighters) stay on the server
+- **Improved initial page load** and SEO
+
+---
+
+### 3. Composition Pattern
+
+Server Components can render Client Components, but not the other way around. Use composition to mix them:
+
+```tsx
+// Server Component (default)
+import { InteractiveChart } from "./chart"; // Client Component
+
+async function Dashboard() {
+  const data = await fetchAnalytics();
+
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <p>Total users: {data.totalUsers}</p>
+      {/* Pass server data as props to client component */}
+      <InteractiveChart data={data.chartData} />
+    </div>
+  );
+}
+```
+
+---
+
+### 4. Data Fetching Patterns
+
+Fetch data directly in Server Components — no `useEffect`, no loading states for initial data:
+
+```tsx
+async function BlogPost({ slug }: { slug: string }) {
+  const post = await db.post.findUnique({ where: { slug } });
+
+  if (!post) return notFound();
+
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <time>{post.publishedAt.toLocaleDateString()}</time>
+      <div dangerouslySetInnerHTML={{ __html: post.content }} />
+    </article>
+  );
+}
+```
+
+For parallel data fetching:
+
+```tsx
+async function Page() {
+  const [user, posts, notifications] = await Promise.all([
+    getUser(),
+    getPosts(),
+    getNotifications(),
+  ]);
+
+  return (
+    <>
+      <UserProfile user={user} />
+      <PostList posts={posts} />
+      <NotificationBell count={notifications.unread} />
+    </>
+  );
+}
+```
+
+---
+
+### 5. When to Use Client Components
+
+Use `"use client"` when you need:
+- **Event handlers** (`onClick`, `onChange`, etc.)
+- **State and effects** (`useState`, `useEffect`, `useReducer`)
+- **Browser APIs** (`window`, `localStorage`, `IntersectionObserver`)
+- **Custom hooks** that depend on the above
+
+---
+
+### Key Takeaways
+
+- Default to **Server Components** — only opt into client when you need interactivity
+- **Fetch data directly** in server components without API boilerplate
+- **Keep expensive libraries** on the server to reduce bundle size
+- Use **composition patterns** to combine server and client components effectively

@@ -120,32 +120,6 @@ export const DATA = {
   ],
   projects: [
     {
-      title: "Supabase Webhooks & Resend Emails",
-      href: "#",
-      dates: "Feb 2025 - Feb 2025",
-      active: true,
-      description:
-        "A code sample + demo to show a use case of supabase auth hook and database hook and sending custom react email templates via Resend api or smtp configuration (nodemailer)",
-      technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "TailwindCSS",
-        "Shadcn UI",
-        "Supabase",
-        "Resend",
-      ],
-      links: [
-        {
-          type: "Source",
-          href: "https://github.com/mnm89/supabase-resend-emails",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "",
-    },
-    {
       title: "Next Vision Consulting",
       href: "#",
       dates: "Oct 2024 - Feb 2025",
@@ -192,73 +166,6 @@ export const DATA = {
           type: "Source",
           href: "https://github.com/mnm89/e-commerce-store",
           icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "",
-    },
-    {
-      title: "ZForm",
-      href: "#",
-      dates: "Jan 2025 - Feb 2025",
-      active: true,
-      description:
-        "ZForm is a dynamic form generation library based on shadcn components that utilizes Zod schemas to automatically create and manage forms. Built on react-hook-form, it allows for extensive customization of form fields, layouts, and behaviors",
-      technologies: [
-        "Next.js",
-        "Typescript",
-        "zod",
-        "TailwindCSS",
-        "Shadcn UI",
-      ],
-      links: [
-        {
-          type: "Source",
-          href: "https://github.com/mnm89/zform",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "",
-    },
-    {
-      title: "StepWizard",
-      href: "#",
-      dates: "Jan 2025 - Feb 2025",
-      active: true,
-      description:
-        "The StepWizard component is a flexible and customizable stepper component designed to guide users through a multi-step process, such as onboarding, surveys, or forms. It simplifies the implementation of complex workflows by managing steps and transitions seamlessly.",
-      technologies: ["Next.js", "Typescript", "TailwindCSS", "Shadcn UI"],
-      links: [
-        {
-          type: "Source",
-          href: "https://github.com/mnm89/step-wizard",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "",
-    },
-    {
-      title: "SoltanOptic",
-      href: "#",
-      dates: "Jul 2023 - May 2024",
-      active: true,
-      description:
-        "A full stack e-commerce project (MarketPlace) with it's store admin based on Medusa V1 and a search engine based on Meilisearch.",
-      technologies: [
-        "Medusa.js",
-        "Typescript",
-        "Docker",
-        "Ant Design",
-        "React",
-        "Vite",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://soltanoptic.com/",
-          icon: <Icons.globe className="size-3" />,
         },
       ],
       image: "",

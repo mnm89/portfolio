@@ -1,0 +1,156 @@
+---
+title: "Mastering TypeScript Generics"
+publishedAt: "2025-01-15"
+summary: "A deep dive into TypeScript generics — from basic syntax to advanced patterns like conditional types, mapped types, and utility type construction."
+category: "TypeScript"
+---
+
+### Why Generics Matter
+
+Generics let you write **reusable, type-safe code** without sacrificing flexibility. Instead of using `any`, generics preserve type information across function boundaries.
+
+---
+
+### 1. Basic Generic Functions
+
+A generic function accepts a type parameter that flows through the signature:
+
+```ts
+function identity<T>(value: T): T {
+  return value;
+}
+
+const num = identity(42);        // number
+const str = identity("hello");   // string
+```
+
+TypeScript infers `T` from the argument, but you can also be explicit:
+
+```ts
+const explicit = identity<boolean>(true);
+```
+
+---
+
+### 2. Generic Interfaces and Classes
+
+Generics work with interfaces and classes too:
+
+```ts
+interface Repository<T> {
+  findById(id: string): Promise<T>;
+  save(entity: T): Promise<void>;
+  delete(id: string): Promise<void>;
+}
+
+class InMemoryRepository<T extends { id: string }> implements Repository<T> {
+  private store = new Map<string, T>();
+
+  async findById(id: string): Promise<T> {
+    const entity = this.store.get(id);
+    if (!entity) throw new Error(`Not found: ${id}`);
+    return entity;
+  }
+
+  async save(entity: T): Promise<void> {
+    this.store.set(entity.id, entity);
+  }
+
+  async delete(id: string): Promise<void> {
+    this.store.delete(id);
+  }
+}
+```
+
+---
+
+### 3. Generic Constraints
+
+Use `extends` to restrict what types a generic can accept:
+
+```ts
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+const user = { name: "Alice", age: 30 };
+const name = getProperty(user, "name"); // string
+const age = getProperty(user, "age");   // number
+// getProperty(user, "email");          // Error!
+```
+
+---
+
+### 4. Conditional Types
+
+Conditional types enable type-level branching:
+
+```ts
+type IsString<T> = T extends string ? true : false;
+
+type A = IsString<string>;   // true
+type B = IsString<number>;   // false
+
+type NonNullable<T> = T extends null | undefined ? never : T;
+type C = NonNullable<string | null>; // string
+```
+
+---
+
+### 5. Mapped Types
+
+Transform every property of an existing type:
+
+```ts
+type Readonly<T> = {
+  readonly [K in keyof T]: T[K];
+};
+
+type Partial<T> = {
+  [K in keyof T]?: T[K];
+};
+
+type Nullable<T> = {
+  [K in keyof T]: T[K] | null;
+};
+
+interface User {
+  name: string;
+  email: string;
+}
+
+type ReadonlyUser = Readonly<User>;
+type PartialUser = Partial<User>;
+type NullableUser = Nullable<User>;
+```
+
+---
+
+### 6. Building Custom Utility Types
+
+Combine generics, conditional types, and mapped types:
+
+```ts
+type PickByType<T, V> = {
+  [K in keyof T as T[K] extends V ? K : never]: T[K];
+};
+
+interface Config {
+  host: string;
+  port: number;
+  debug: boolean;
+  name: string;
+}
+
+type StringConfig = PickByType<Config, string>;
+// { host: string; name: string }
+```
+
+---
+
+### Key Takeaways
+
+- **Start simple**: use generics to avoid `any` while keeping functions flexible
+- **Add constraints** with `extends` to narrow what's acceptable
+- **Leverage conditional types** for type-level logic
+- **Build utility types** to reduce boilerplate across your codebase
