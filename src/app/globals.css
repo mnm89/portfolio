@@ -80,7 +80,12 @@
   }
   
   pre {
-    @apply !px-0 rounded-lg overflow-x-auto py-4
+    @apply !px-0 rounded-lg overflow-x-auto py-4;
+    background-color: var(--shiki-light-bg) !important;
+  }
+
+  .dark pre {
+    background-color: var(--shiki-dark-bg) !important;
   }
    
   pre [data-line] {
