@@ -19,7 +19,11 @@ This is a single-service Next.js 14 portfolio/blog site. No databases, Docker, e
 ### Codebase notes
 
 - Blog content lives in `/content/*.mdx` files, read at render time via `src/data/blog.ts` using Node.js `fs`.
+- Each MDX file has frontmatter fields: `title`, `publishedAt`, `summary`, and `category` (used for grid filtering on `/blog`).
+- The blog list page (`src/app/blog/page.tsx`) renders a grid with client-side category filtering via `src/components/blog-list.tsx`.
 - Portfolio/resume data is a static TypeScript object in `src/data/resume.tsx`.
+- The avatar image is served from `public/me.png`.
 - No API routes exist; the app is entirely static/SSG.
 - Uses `pnpm@9.4.0` as the package manager (declared in `package.json` `packageManager` field).
 - Path alias `@/*` maps to `./src/*` (configured in `tsconfig.json`).
+- When the dev server port 3000 is already in use, Next.js auto-increments to 3001, 3002, etc.
