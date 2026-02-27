@@ -87,12 +87,12 @@
 
   .copy-code-btn {
     @apply absolute top-2 right-2 p-1.5 rounded-md opacity-0 transition-opacity duration-200 cursor-pointer;
-    color: var(--muted-foreground);
-    background-color: hsl(var(--muted));
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--border));
   }
 
   .copy-code-btn:hover {
-    background-color: hsl(var(--accent));
+    background-color: hsl(var(--secondary));
   }
 
   pre:hover .copy-code-btn {
