@@ -8,10 +8,20 @@ export const DATA = {
   location: "Berlin, DE",
   locationLink: "https://www.google.com/maps/place/Berlin",
   description:
-    "I am a dedicated software engineer with a passion for web development and a keen eye for creating efficient, user-friendly applications.",
+    "Full-stack software engineer and co-founder with eight years of experience building web and mobile products. Skilled in React, Next.js, Node.js, and React Native, with a track record in microservices, payments, and end-to-end technical delivery.",
   summary:
     "Innovative and results-driven Senior Full Stack Software Engineer with extensive experience in developing scalable, high-performance web and mobile solutions. Proficient in both front-end and back-end technologies, with expertise in JavaScript (Node.js, React.js, TypeScript), C# .NET, PHP, and cloud infrastructure. Proven ability to lead technical teams, optimize system performance, and deliver impactful digital solutions. Passionate about mentoring, DevOps, and cutting-edge software architectures.",
-  avatarUrl: "/me.png",
+  avatarUrl: "/me.jpeg",
+  highlights:[
+    'Strong problem-solving skills, able to overcome complex technical challenges efficiently.',
+    'Proficient in building scalable web applications using React, Next.js, and React Native.',
+    'Experienced in designing and maintaining microservices with Node.js, NestJS, and Moleculer.js.',
+    'Able to work closely with cross-functional teams to deliver exceptional results on deadline.',
+    'Experienced in CI/CD, Docker, monitoring (Prometheus, Grafana), and operational alerting.',
+    'Provides technical leadership in onboarding, project management, and customer issue resolution.',
+    'Experienced in payment integrations (Stripe, PayPal) and secure authentication (OAuth, Keycloak , Ory).',
+    'Adaptive and eager to learn new technologies, thriving in startup and fast-paced environments.'
+  ],
   skills: [
     "React",
     "Next.js",
@@ -56,9 +66,9 @@ export const DATA = {
       href: "https://nvisionconsulting.de",
       badges: [],
       location: "Remote",
-      title: "Technical Lead & Software Engineer",
+      title: "Co-Founder & IT Responsible",
       logoUrl: "/nv.png",
-      start: "Oct 2023",
+      start: "Dec 2023",
       end: "Present",
       description:
         "Developed a comprehensive consultancy platform for students applying to study in Germany. Designed and deployed a full-stack system using Next.js (frontend & admin dashboard), React Native (mobile apps), and Supabase (backend infrastructure). Integrated Calendly for appointment scheduling, enhancing agent-student interaction efficiency. Led CI/CD implementation, ensuring seamless deployment for web and mobile applications. Impact: Delivered an intuitive platform that improved application submission efficiency and user engagement.",
@@ -120,76 +130,51 @@ export const DATA = {
   ],
   projects: [
     {
-      title: "Next Vision Consulting",
-      href: "#",
-      dates: "Oct 2024 - Feb 2025",
-      active: true,
+      title: "Digital Agency Client",
       description:
-        "A consultancy platform for students applying to study in Germany. A full-stack system using Next.js (frontend & admin dashboard), React Native (mobile apps), and Supabase (backend infrastructure). Integrated Calendly for appointment scheduling",
+        "Built a marketing website for a digital agency. Their team can add and edit pages, images, and campaign content on their own without needing a developer for every change.",
       technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "TailwindCSS",
-        "Shadcn UI",
-        "Magic UI",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://nvisionconsulting.de",
-          icon: <Icons.globe className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "",
-    },
-    {
-      title: "Full-Stack E-commerce",
-      href: "#",
-      dates: "Nov 2024 - Dec 2024",
-      active: true,
-      description:
-        "Setup for a Medusa V2 application including MinIO for file storage, Paypal and Stripe as payment providers, with a docker-compose stack",
-      technologies: [
-        "Medusa V2",
+        "Payload CMS",
         "Nodejs",
         "typescript",
         "Nextjs",
-        "React",
-        "Minio",
-        "Stripe",
-        "Paypal",
+        "MongoDB",
+        "Vercel"
       ],
       links: [
-        {
-          type: "Source",
-          href: "https://github.com/mnm89/e-commerce-store",
-          icon: <Icons.github className="size-3" />,
-        },
       ],
       image: "",
       video: "",
     },
     {
-      title: "Electron ffmpeg",
-      href: "#",
-      dates: "Sep 2018 - Nov 2018",
-      active: true,
-      description: "A video player using ffmpeg with electron",
+      title: "Service Business Client",
+      description:
+        "Built a mobile app for a company that sends technicians to customer locations. Staff use the app to see their daily visits, update job progress, and stay in sync with the office team.",
       technologies: [
-        "Electron",
-        "Angular",
+        "React Native",
+        "Expo",
         "typescript",
-        "ngx-videogular",
-        "ffmpeg",
+        "Nextjs",
+        "Supabase"
       ],
       links: [
-        {
-          type: "Source",
-          href: "https://github.com/mnm89/electron-ffmpeg",
-          icon: <Icons.github className="size-3" />,
-        },
+      ],
+      image: "",
+      video: "",
+    },
+    {
+      title: "SaaS Startup Client",
+      description:
+        "Built a help center and customer portal for a software startup. Users can read guides and FAQs online, while the startup team updates all content from a simple admin panel—no code required.",
+      technologies: [
+        "Payload CMS",
+        "React Native",
+        "Expo",
+        "typescript",
+        "Nextjs",
+        "PostgreSQL"
+      ],
+      links: [
       ],
       image: "",
       video: "",
