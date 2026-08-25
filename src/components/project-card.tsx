@@ -13,9 +13,7 @@ import Markdown from "react-markdown";
 
 interface Props {
   title: string;
-  href?: string;
   description: string;
-  dates: string;
   tags: readonly string[];
   link?: string;
   image?: string;
@@ -30,9 +28,7 @@ interface Props {
 
 export function ProjectCard({
   title,
-  href,
   description,
-  dates,
   tags,
   link,
   image,
@@ -47,7 +43,7 @@ export function ProjectCard({
       }
     >
       <Link
-        href={href || "#"}
+        href="#"
         className={cn("block cursor-pointer", className)}
       >
         {video && (
